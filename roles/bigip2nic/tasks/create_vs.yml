@@ -1,0 +1,79 @@
+---
+
+  - name: Provision feature modules
+    bigip_provision:
+      module: "{{ item.name }}"
+      level: "{{ item.level }}"
+    delegate_to: localhost
+    loop:
+      - { name: asm, level: minimum }
+      - { name: apm, level: minimum }
+      - { name: avr, level: minimum }
+
+
+  - name: Create uri rewrite profile
+    uri:
+        url: "https://{{ bigipMgmtIp }}/mgmt/tm/ltm/profile/rewrite"
+        method: POST
+        headers:
+          Content-Type: "application/json"
+        user: "{{ azure_user }}"
+        password: "{{ azure_user_pass }}"
+        body:
+          name: "bodgeit-rewrite"
+          partition: Common
+          defaultsFrom: "/Common/rewrite-uri-translation"
+          uri-rules:
+          - name: default
+            client:
+              path: "/"
+            server:
+              path: "/bodgeit/"
+            type: both
+        body_format: json
+        validate_certs: no
+    delegate_to: localhost
+
+  - name: Create HTTP head monitor
+    bigip_monitor_http:
+      state: "{{ deploy_state }}"
+      name: "{{ baseProfileName }}_http_head_mon"
+      send: "HEAD /bodgeit/login.jsp HTTP/1.0\r\n\r\n"
+      recv: "HTTP 200"
+    delegate_to: localhost
+
+  - name: Create bodgeit pool
+    bigip_pool:
+      state: present
+      name: "bodgeit_pool"
+      partition: Common
+      lb_method: observed-member
+      monitor_type: single
+      monitors:
+         - "{{ baseProfileName }}_http_head_mon"
+      slow_ramp_time: 120
+      validate_certs: no
+    delegate_to: localhost      
+
+  - name: Install maintenance page iRule
+    bigip_irule: 
+      validate_certs: no
+      module: ltm
+      name: maint_pg_irule
+      content: "{{ lookup('file', 'tmp/maint_pg.irule') }}"
+    delegate_to: localhost
+
+  - name: Create virtual server
+    bigip_virtual_server:
+      partition: Common
+      name: bodgeit_vs
+      destination: "{{ extVipAddr1 }}"
+      pool: "bodgeit_pool"
+      port: "80"  
+      all_profiles:
+        - http
+      all_rules:
+        - maint_pg_irule
+    delegate_to: localhost
+
+ 
