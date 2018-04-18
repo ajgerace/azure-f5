@@ -1,0 +1,60 @@
+---
+
+  - name: Create resource group
+    azure_rm_resourcegroup: 
+      name: "{{ prefix }}_rg"
+      location: "{{ location }}"
+      state: "{{ deploy_state }}"
+      cert_validation_mode: ignore
+    delegate_to: localhost
+    tags: create_rg
+
+  - name: Create virtual network
+    azure_rm_virtualnetwork:
+      name: "{{ prefix }}_rg_vnet"
+      address_prefixes_cidr: 
+        - "{{ az_rg_vnet }}"
+      resource_group: "{{ prefix }}_rg"
+      state: "{{ deploy_state }}"
+      cert_validation_mode: ignore
+    tags: vnet 
+
+  - name: Create mgmt security group
+    azure_rm_securitygroup:
+      cert_validation_mode: ignore
+      name: "{{ prefix }}_sg_mgmt"
+      rules: "{{ mgmt_rules }}"
+      resource_group: "{{ prefix }}_rg"
+      state: "{{ deploy_state }}"
+    tags: sg
+
+  - name: Create ext security group
+    azure_rm_securitygroup:
+      cert_validation_mode: ignore
+      name: "{{ prefix }}_sg_ext"
+      rules: "{{ ext_rules }}"
+      resource_group: "{{ prefix }}_rg"
+      state: "{{ deploy_state }}"
+    tags: sg
+
+  - name: Create int security group
+    azure_rm_securitygroup:
+      cert_validation_mode: ignore
+      name: "{{ prefix }}_sg_int"
+      rules: "{{ int_rules }}"
+      resource_group: "{{ prefix }}_rg"
+      state: "{{ deploy_state }}"
+    tags: sg
+
+  - name: Create subnets
+    azure_rm_subnet:
+      cert_validation_mode: ignore
+      name: "{{ item.name }}"
+      virtual_network_name: "{{ item.vnet }}"
+      resource_group: "{{ item.resGroup }}"
+      security_group: "{{ item.secGroup }}"
+      address_prefix_cidr: "{{ item.cidr }}"
+      state: "{{ deploy_state }}"
+    with_items: "{{ subnets }}"
+    tags: subnets
+

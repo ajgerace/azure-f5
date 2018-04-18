@@ -1,0 +1,61 @@
+---
+
+  - name: Create BIG-IP 2-NIC Standalone
+    when: deploy_state == "present"
+    azure_rm_deployment:
+      state: "{{ deploy_state }}"
+      cert_validation_mode: ignore
+      resource_group_name: "{{ prefix }}_rg"
+      location: "{{ location }}"
+      template_link: "https://raw.githubusercontent.com/F5Networks/f5-azure-arm-templates/master/supported/standalone/2nic/existing_stack/PAYG/azuredeploy.json"
+      parameters:   
+        adminUsername: 
+          value: "{{ azure_user }}"
+        adminPassword:
+          value: "{{ azure_user_pass }}"
+        dnsLabel: 
+          value: "{{ dnsLabel }}"
+        instanceName: 
+          value: "{{ instanceName }}"
+        instanceType:
+          value: "{{ instanceType }}"
+        imageName:
+          value: "{{ imageName }}"
+        bigIpVersion:
+          value: "{{ bigIpVersion }}"
+        licensedBandwidth:
+          value: "{{ licensedLimit }}"         
+        numberOfExternalIps:
+          value: "{{ numOfExtIps }}"
+        vnetName:
+          value: "{{ vnetName }}"
+        vnetResourceGroupName:
+          value: "{{ vnetResGroupName }}"
+        mgmtSubnetName:
+          value: "{{ mgmtSubnetName }}"
+        mgmtIpAddress:
+            value: "{{ mgmtIpAddrBigIp1 }}"
+        externalSubnetName: 
+          value: "{{ externalSubnetName }}" 
+        externalIpAddressRangeStart: 
+          value: "{{ extIpAddrBigIp1 }}"
+        ntpServer:  
+          value: "{{ ntpServer }}"
+        timeZone: 
+          value: "{{ timeZone }}"
+        restrictedSrcAddress:  
+          value: "*"      
+        tagValues: 
+          value: "{{ tagValues }}"
+        allowUsageAnalytics: 
+          value: "Yes"                
+    
+  - name: Decommission BIG-IP 2-NIC Standalone
+    when: deploy_state == "absent"
+    azure_rm_deployment:
+      state: "{{ deploy_state }}"
+      cert_validation_mode: ignore
+      resource_group_name: "{{ prefix }}_rg"
+    
+
+

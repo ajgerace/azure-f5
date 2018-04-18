@@ -1,0 +1,21 @@
+---
+- name: F5 Agility Lab 
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  environment:
+    AZURE_CLIENT_ID:         "{{ azure_client_id }}"
+    AZURE_SECRET:            "{{ azure_secret }}"
+    AZURE_SUBSCRIPTION_ID:   "{{ azure_subscription_id }}"
+    AZURE_TENANT:            "{{ azure_tenant_id }}"
+    AZURE_CERT_VALIDATION:   ignore
+  
+  vars_files:
+    - "/home/ansible/agility/group_vars/azure-f5.yml"
+
+  roles:
+    - { role: setup_az_env, tags: rg,  when: deploy_state == "present" }
+    - { role: bigip2nic,    tags: 2nic }
+    - { role: decom_az_env, tags: rg,  when: deploy_state == "absent"  }
+  
