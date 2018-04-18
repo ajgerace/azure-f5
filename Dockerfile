@@ -1,14 +1,20 @@
 FROM alpine:latest
 LABEL maintainer="Anthony Gerace"
+LABEL version="1.0"
+LABEL description="F5 Azure Agility lab docker container"
 
 RUN apk add --update --no-cache  git py-pip vim curl openssh-client  \
-  libffi-dev openssl-dev musl-dev jq python-dev bash gcc make 
+  libffi-dev openssl-dev python-dev gcc make musl-dev util-linux 
 
+RUN pip install --no-cache-dir --upgrade pip  
+RUN pip install ansible \
+    bigsuds f5-sdk netaddr deepdiff packaging msrestazure dnspython 
 
-RUN pip install --no-cache-dir --upgrade pip wheel
-RUN pip install ansible azure-cli \
-    bigsuds f5-sdk netaddr deepdiff  boto boto3 ansible[azure] && \
-    mkdir -p /home/ansible && adduser -u 1001 -D -h /home/ansible ansible 
+RUN pip install ansible[azure] && \
+    mkdir -p /home/ansible/playbooks && \
+    mkdir -p /home/ansible/group_vars && \
+    mkdir -p /home/ansible/tmp && \
+    adduser -u 1001 -D -h /home/ansible ansible 
 WORKDIR /home/ansible
 
 
