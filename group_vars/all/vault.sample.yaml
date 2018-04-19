@@ -1,0 +1,10 @@
+---
+
+  azure_client_id: "value"
+  azure_secret: "value"
+  azure_subscription_id: "value"
+  azure_tenant_id: "value"
+
+  azure_user: "value" 
+  azure_user_pass: "value"
+
