@@ -71,9 +71,10 @@
       bigipVip1Pip: "{{ az_pip_vip1.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
     tags: rtv_mgmtIP
 
-  - include_tasks: create_vs.yml
+  - include_role:
+      name: create_vs
 
-  - 
+  
 
 
 

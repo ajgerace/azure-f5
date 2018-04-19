@@ -1,5 +1,6 @@
 ---
 
+
   - name: Provision feature modules
     bigip_provision:
       module: "{{ item.name }}"
@@ -10,15 +11,15 @@
       - { name: apm, level: minimum }
       - { name: avr, level: minimum }
 
-
-
   - name: Create HTTP head monitor
     bigip_monitor_http:
       state: "{{ deploy_state }}"
       name: "{{ baseProfileName }}_http_head_mon"
       send: "HEAD /bodgeit/login.jsp HTTP/1.0\r\n\r\n"
-      receive: "HTTP 200"
+      receive: "HTTP/1.1 200"
+      validate_certs: no
     delegate_to: localhost
+    tags: create_vs
 
   - name: Create bodgeit pool
     bigip_pool:
@@ -32,6 +33,7 @@
       slow_ramp_time: 120
       validate_certs: no
     delegate_to: localhost      
+    tags: create_vs
 
   - name: create service discovery for bodgeit
     bigip_iapp_service:
@@ -63,23 +65,25 @@
           - name: pool__member_port
             value: "8080"
           - name: pool__pool_to_use
-            value: "bodgeit_pool"
+            value: "/Common/bodgeit_pool"
           - name: pool__public_private
             value: private
           - name: pool__tag_key
-            value: app_name
+            value: appName
           - name: pool__tag_value
             value: bodgeit
     delegate_to: localhost
+    tags: create_vs
             
 
-#  - name: Install maintenance page iRule
-#    bigip_irule: 
-#      validate_certs: no
-#      module: ltm
-#      name: maint_pg_irule
-#      content: "{{ lookup('file', '/home/ansible/agility/azure-f5/tmp/maint_pg.irule') }}"
-#    delegate_to: localhost
+  - name: Install maintenance page iRule
+    bigip_irule: 
+      validate_certs: no
+      module: ltm
+      name: maint_pg_irule
+      content: "{{ lookup('file', 'maint_page.irule') }}"
+    delegate_to: localhost
+    tags: create_vs
 
   - name: Create virtual server
     bigip_virtual_server:
@@ -90,8 +94,9 @@
       port: "80"  
       all_profiles:
         - http
- #     all_rules:
- #       - maint_pg_irule
+      all_rules:
+        - maint_pg_irule
     delegate_to: localhost
+    tags: create_vs
 
  

@@ -1,36 +1,10 @@
 ---
 
-  - name: Decommission subnets
-    azure_rm_subnet:
-      cert_validation_mode: ignore
-      name: "{{ item.name }}"
-      virtual_network_name: "{{ item.vnet }}"
-      resource_group: "{{ item.resGroup }}"
-      state: "{{ deploy_state }}"
-    loop: "{{ subnets }}"
-    tags: subnets
-
-  - name: Decommission security groups
-    azure_rm_securitygroup:
-      cert_validation_mode: ignore
-      name: "{{ item.name }}"
-      resource_group: "{{ item.rg }}"
-      state: "{{ deploy_state }}"
-    loop: "{{ secGroups }}"
-    tags: sg
-
-  - name: Decommission virtual network
-    azure_rm_virtualnetwork:
-      name: "{{ prefix }}_rg_vnet"
-      resource_group: "{{ prefix }}_rg"
-      state: "{{ deploy_state }}"
-      cert_validation_mode: ignore
-    tags: vnet 
-
   - name: Decommission resource group
     azure_rm_resourcegroup: 
       name: "{{ prefix }}_rg"
       state: "{{ deploy_state }}"
       cert_validation_mode: ignore
+      force: true
     delegate_to: localhost
     tags: rg

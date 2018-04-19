@@ -1,9 +1,9 @@
 # enivronment variables for an azure deployment    
-    prefix:           "agerace"
+    prefix:           "ag-student"
     az_rg_vnet:       "10.0.0.0/16"
     location:         eastus
     my_ip:            "71.184.69.85"
-    dnsLabel:         "{{ prefix }}demo"
+    dnsLabel:         "{{ prefix }}-agility"
     instanceName:     "vadc01"
     instanceType:     "Standard_D3_v2" 
     imageName:        "Best"
@@ -16,7 +16,7 @@
     mgmtIpAddrBigIp1: "10.0.0.245"
     externalSubnetName: "{{ prefix }}_sub_ext"  
     extIpAddrBigIp1:  "10.0.10.245"
-    extVipAddr1:      "10.0.10.10"
+    extVipAddr1:      "10.0.10.246"
     internalSubnetName: "{{ prefix }}_sub_int" 
     intIpAddrBigIp1:  "10.0.20.245"
     managedRoutes:    "10.0.10.0/24,10.0.20.0/24"
@@ -34,8 +34,8 @@
       - { name: "{{ prefix }}_sg_int",  rg: "{{ prefix }}_rg" }
 
     appServers:
-      - { name: "{{ prefix}}_vm_bodgeit01", shortName: "bodgeit01" }
-      - { name: "{{ prefix}}_vm_bodgeit02", shortName: "bodgeit02" }
+      - { name: "{{ prefix}}_vm_bodgeit01", shortName: "bodgeit01", instanceType: "Standard_B1s" }
+      - { name: "{{ prefix}}_vm_bodgeit02", shortName: "bodgeit02", instanceType: "Standard_B1s" }
 
     mgmt_rules:
       - name: Allow_SSH

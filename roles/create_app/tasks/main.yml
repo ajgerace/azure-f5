@@ -1,0 +1,25 @@
+---
+
+- name: Create Bodgeit VM
+  azure_rm_virtualmachine:
+    state: "{{ deploy_state }}"
+    cert_validation_mode: ignore
+    resource_group: "{{ prefix }}_rg"
+    location: "{{ location }}"
+    name: "{{ item.name }}"
+    vm_size: "{{ item.instanceType }}"
+    custom_data: "{{ lookup('file', 'bodgeit_user_data.sh') }}"
+    admin_username: "{{ azure_user }}"
+    admin_password: "{{ azure_user_pass }}"
+    ssh_password_enabled: true
+    subnet_name: "{{ externalSubnetName }}"
+    short_hostname: "{{ item.shortName }}"
+    image:
+      offer: UbuntuServer
+      publisher: Canonical
+      sku: '16.04-LTS'
+      version: latest  
+    tags: "appName=bodgeit"    
+  tags: app
+  delegation_to: localhost
+  with_items: "{{ appServers }}"
