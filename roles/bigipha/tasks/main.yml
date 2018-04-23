@@ -1,0 +1,85 @@
+---
+
+  - name: Create BIG-IP HA Cluster
+    azure_rm_deployment:
+      state: "{{ deploy_state }}"
+      cert_validation_mode: ignore
+      resource_group_name: "{{ vnetResGroupName }}"
+      location: "{{ location }}"
+      template_link: "https://raw.githubusercontent.com/F5Networks/f5-azure-arm-templates/master/supported/cluster/failover-api/existing_stack/PAYG/azuredeploy.json"
+      parameters:   
+        adminUsername: 
+          value: "{{ azure_user }}"
+        adminPassword:
+          value: "{{ azure_user_pass }}"
+        dnsLabel: 
+          value: "{{ dnsLabel }}"
+        instanceName: 
+          value: "{{ instanceName }}"
+        instanceType:
+          value: "{{ instanceType }}"
+        imageName:
+          value: "{{ imageName }}"
+        bigIpVersion:
+          value: "{{ bigIpVersion }}"
+        licensedBandwidth:
+          value: "{{ licensedLimit }}"         
+        numberOfExternalIps:
+          value: "{{ numOfExtIps }}"
+        vnetName:
+          value: "{{ vnetName }}"
+        vnetResourceGroupName:
+          value: "{{ vnetResGroupName }}"
+        mgmtSubnetName:
+          value: "{{ mgmtSubnetName }}"
+        mgmtIpAddressRangeStart:
+          value: "{{ mgmtIpAddrBigIp1 }}"
+        externalSubnetName: 
+          value: "{{ externalSubnetName }}"
+        externalIpSelfAddressRangeStart: 
+          value: "{{ extIpAddrBigIp1 }}" 
+        externalIpAddressRangeStart: 
+          value: "{{ extVipAddr1 }}"
+        internalSubnetName: 
+          value: "{{ internalSubnetName }}"
+        internalIpAddressRangeStart: 
+          value: "{{ intIpAddrBigIp1 }}"
+        tenantId: 
+          value: "{{ azure_tenant_id }}" 
+        clientId: 
+          value: "{{ azure_client_id }}"
+        servicePrincipalSecret:  
+          value: "{{ azure_secret}}"
+        managedRoutes:  
+          value: "{{ managedRoutes }}"
+        ntpServer:  
+          value: "{{ ntpServer }}"
+        timeZone: 
+          value: "{{ timeZone }}"
+        restrictedSrcAddress:  
+          value: "*"      
+        tagValues: 
+          value: "{{ tagValues }}"
+        allowUsageAnalytics: 
+          value: "Yes"                
+    tags: create_f5
+ 
+  - name: Retrieve BIG-IP1 Management Public IP
+    azure_rm_publicipaddress_facts:
+      resource_group: "{{ vnetResGroupName }}"
+      name: "{{dnsLabel}}-mgmt-pip0"
+    register: az_ha_mgmt1
+
+  - name: Retrieve public IP for Vip1
+    azure_rm_publicipaddress_facts:
+      resource_group: "{{ vnetResGroupName }}"
+      name: "{{dnsLabel}}-ext-pip0"
+    register: az_pip_vip1
+
+  - name: Create facts from BIG-IP deployment 
+    set_fact:
+      bigipMgmtIp: "{{ az_ha_mgmt1.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
+      bigipVip1Pip: "{{ az_pip_vip1.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
+ 
+  - debug: 
+      msg: "BIG-IP1 can be accessed via https://{{ bigipMgmtIp }}, vip1 {{ bigipVip1Pip }}" 

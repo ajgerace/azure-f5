@@ -21,6 +21,7 @@
   roles:
     - { role: setup_az_env, tags: rg,   when: deploy_state == "present" }
     - { role: bigip2nic,    tags: 2nic, when: deploy_state == "present" }
+    - { role: bigipha,      tags: ha,   when: deploy_state == "present" }
 #    - { role: create_vs,    tags: create_vs, when: deploy_state == "present" }
     - { role: create_app,   tags: app,  when: deploy_state == "present" }
     - { role: decom_az_env, tags: rg,   when: deploy_state == "absent"  }

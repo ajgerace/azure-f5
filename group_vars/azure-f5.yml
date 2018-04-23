@@ -16,7 +16,7 @@
     mgmtIpAddrBigIp1: "10.0.0.245"
     externalSubnetName: "{{ prefix }}_sub_ext"  
     extIpAddrBigIp1:  "10.0.10.245"
-    extVipAddr1:      "10.0.10.246"
+    extVipAddr1:      "10.0.10.10"
     internalSubnetName: "{{ prefix }}_sub_int" 
     intIpAddrBigIp1:  "10.0.20.245"
     managedRoutes:    "10.0.10.0/24,10.0.20.0/24"
