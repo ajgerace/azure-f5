@@ -4,7 +4,7 @@
   connection: local
   gather_facts: no
 
-  environment:
+  environment:  
     AZURE_CLIENT_ID:         "{{ azure_client_id }}"
     AZURE_SECRET:            "{{ azure_secret }}"
     AZURE_SUBSCRIPTION_ID:   "{{ azure_subscription_id }}"
@@ -22,7 +22,7 @@
     - { role: setup_az_env, tags: rg,   when: deploy_state == "present" }
     - { role: bigip2nic,    tags: 2nic, when: deploy_state == "present" }
     - { role: bigipha,      tags: ha,   when: deploy_state == "present" }
-#    - { role: create_vs,    tags: create_vs, when: deploy_state == "present" }
+    - { role: create_vs,    tags: create_vs, when: deploy_state == "present" }
     - { role: create_app,   tags: app,  when: deploy_state == "present" }
     - { role: decom_az_env, tags: rg,   when: deploy_state == "absent"  }
   
