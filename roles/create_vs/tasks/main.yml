@@ -1,6 +1,7 @@
 ---
 
 
+
   - name: Provision feature modules
     bigip_provision:
       module: "{{ item.name }}"
@@ -11,6 +12,14 @@
       - { name: apm, level: minimum }
       - { name: avr, level: minimum }
 
+  - name: Wait for BIG-IP to become ready after module provisioning
+    bigip_wait:
+      delay: 20
+      validate_certs: no
+      timeout: 180
+    delegate_to: localhost
+
+    
   - name: Create HTTP head monitor
     bigip_monitor_http:
       state: "{{ deploy_state }}"
@@ -77,7 +86,7 @@
             
 
   - name: Install maintenance page iRule
-    bigip_irule: 
+    bigip_irule:  
       validate_certs: no
       module: ltm
       name: maint_pg_irule
@@ -96,6 +105,7 @@
         - http
       all_rules:
         - maint_pg_irule
+      snat: automap
     delegate_to: localhost
     tags: create_vs
 

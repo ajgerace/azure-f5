@@ -2,7 +2,7 @@
 
 ## Prerequesites
     1. Build Ansible/Azure Docker container
-      **  docker build -t agility2018 . **
+      **docker build -t agility2018 .**
     2. Run the built container
        ** docker run --rm -it agility2018 **
     2.1 You can utilize a -v option if you'd like to pass a local subdirectory into the container. Example:

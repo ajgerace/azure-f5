@@ -1,7 +1,6 @@
 ---
 
   - name: Create BIG-IP 2-NIC Standalone
-    when: deploy_state == "present"
     azure_rm_deployment:
       state: "{{ deploy_state }}"
       cert_validation_mode: ignore
@@ -50,31 +49,38 @@
         allowUsageAnalytics: 
           value: "Yes"           
 
+  - name: Modify BIGIP ext security group
+    azure_rm_securitygroup:
+      cert_validation_mode: ignore
+      name: "{{ dnsLabel }}-ext-nsg"
+      rules: "{{ ext_rules }}"
+      resource_group: "{{ vnetResGroupName }}"
+      state: "{{ deploy_state }}"
+
+
   - name: Get Public IP BIGIP-A MGMT IP
     azure_rm_publicipaddress_facts:
       resource_group: "{{ vnetResGroupName }}"
       name: "{{dnsLabel}}-mgmt-pip"
     register: az_2nic_mgmt
-    tags: rtv_mgmtIP
-
+ 
 
   - name: Get Public IP BIGIP VIP1
     azure_rm_publicipaddress_facts:
       resource_group: "{{ vnetResGroupName }}"
       name: "{{dnsLabel}}-ext-pip0"
     register: az_pip_vip1
-    tags: rtv_mgmtIP
 
   - name: Create facts from BIG-IP deployment 
     set_fact:
       bigipMgmtIp: "{{ az_2nic_mgmt.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
       bigipVip1Pip: "{{ az_pip_vip1.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
-    tags: rtv_mgmtIP
-
+ 
   - include_role:
       name: create_vs
-
   
+  - debug: 
+      msg: "BIG-IP can be accessed via https://{{ bigipMgmtIp }} and vip1 {{ bigipVip1Pip }}" 
 
 
 

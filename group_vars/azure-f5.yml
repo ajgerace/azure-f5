@@ -3,7 +3,7 @@
     az_rg_vnet:       "10.0.0.0/16"
     location:         eastus
     my_ip:            "71.184.69.85"
-    dnsLabel:         "{{ prefix }}-agility"
+    dnsLabel:         "{{ prefix }}-agilty"
     instanceName:     "vadc01"
     instanceType:     "Standard_D3_v2" 
     imageName:        "Best"
@@ -16,22 +16,22 @@
     mgmtIpAddrBigIp1: "10.0.0.245"
     externalSubnetName: "{{ prefix }}_sub_ext"  
     extIpAddrBigIp1:  "10.0.10.245"
-    extVipAddr1:      "10.0.10.10"
+    extVipAddr1:      "10.0.10.246"
     internalSubnetName: "{{ prefix }}_sub_int" 
     intIpAddrBigIp1:  "10.0.20.245"
     managedRoutes:    "10.0.10.0/24,10.0.20.0/24"
     routeTableTag:    ""
     ntpServer:        "0.pool.ntp.org"
     timeZone:         "America/New_York"
-    tagValues:        "{\"application\":\"APP\",\"cost\":\"COST\",\"environment\":\"ENV\",\"group\":\"GROUP\",\"owner\":\"{{ prefix }}_bigip\"}"
+    tagValues:        "{\"application\":\"Agility\",\"cost\":\"2018\",\"environment\":\"lab\",\"group\":\"cloud\",\"owner\":\"{{ prefix }}_bigip\"}"
     subnets:
       - { name: "{{ prefix}}_sub_mgmt", cidr: "10.0.0.0/24", resGroup: "{{ prefix }}_rg", secGroup: "{{ prefix }}_sg_mgmt", vnet: "{{ prefix }}_rg_vnet" }
-      - { name: "{{ prefix }}_sub_ext", cidr: "10.0.10.0/24", resGroup: "{{ prefix }}_rg", secGroup: "{{ prefix }}_sg_ext ", vnet: "{{ prefix }}_rg_vnet" }
-      - { name: "{{ prefix }}_sub_int", cidr: "10.0.20.0/24", resGroup: "{{ prefix }}_rg", secGroup: "{{ prefix }}_sg_int ", vnet: "{{ prefix }}_rg_vnet" }
-    secGroups:
-      - { name: "{{ prefix }}_sg_mgmt", rg: "{{ prefix }}_rg" }
-      - { name: "{{ prefix }}_sg_ext",  rg: "{{ prefix }}_rg" }
-      - { name: "{{ prefix }}_sg_int",  rg: "{{ prefix }}_rg" }
+      - { name: "{{ prefix }}_sub_ext", cidr: "10.0.10.0/24", resGroup: "{{ prefix }}_rg", secGroup: "{{ prefix }}_sg_ext", vnet: "{{ prefix }}_rg_vnet" }
+      - { name: "{{ prefix }}_sub_int", cidr: "10.0.20.0/24", resGroup: "{{ prefix }}_rg", secGroup: "{{ prefix }}_sg_int", vnet: "{{ prefix }}_rg_vnet" }
+#    secGroups:
+#      - { name: "{{ prefix }}_sg_mgmt", rg: "{{ prefix }}_rg" }
+#      - { name: "{{ prefix }}_sg_ext",  rg: "{{ prefix }}_rg" }
+#      - { name: "{{ prefix }}_sg_int",  rg: "{{ prefix }}_rg" }
 
     appServers:
       - { name: "{{ prefix}}_vm_bodgeit01", shortName: "bodgeit01", instanceType: "Standard_B1s" }

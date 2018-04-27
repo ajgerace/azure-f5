@@ -1,5 +1,24 @@
 ---
 
+- name: Create a public ip address
+  azure_rm_publicipaddress:
+    resource_group: "{{ vnetResGroupName }}"
+    name: "{{ item.name}}_pip"
+    allocation_method: Dynamic
+  loop: "{{ appServers }}"
+
+
+- name: Create network interface
+  azure_rm_networkinterface:
+    cert_validation_mode: ignore
+    name: "{{ item.name }}_inf"
+    public_ip_address_name: "{{ item.name }}_pip"
+    resource_group: "{{ vnetResGroupName }}"
+    security_group_name: "{{ prefix }}_sg_ext"  
+    subnet_name: "{{ externalSubnetName }}"
+    virtual_network_name: "{{ vnetName }}"
+  loop: "{{ appServers }}"
+
 - name: Create Bodgeit VM
   azure_rm_virtualmachine:
     state: "{{ deploy_state }}"
@@ -14,6 +33,7 @@
     ssh_password_enabled: true
     subnet_name: "{{ externalSubnetName }}"
     short_hostname: "{{ item.shortName }}"
+    network_interfaces: "{{ item.name }}_inf"
     image:
       offer: UbuntuServer
       publisher: Canonical
