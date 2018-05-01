@@ -1,23 +1,27 @@
 # enivronment variables for an azure deployment    
+
+
+    deployment:       "2nic"
+    my_ip:            "71.184.69.85"
+
+
     prefix:           "f5az-student"
     az_rg_vnet:       "10.0.0.0/16"
     location:         eastus
-    deployment:       "2nic"
-    my_ip:            "71.184.69.85"
     dnsLabel:         "{{ prefix }}"
     instanceName:     "vadc"
     instanceType:     "Standard_D3_v2" 
     imageName:        "Best"
     bigIpVersion:     "13.1.0200"
     licensedLimit:    "25m"
-    numOfExtIps:      5
+    numOfExtIps:      1
     vnetName:         "{{ prefix }}_rg_vnet"
     vnetResGroupName: "{{ prefix }}_rg"
     mgmtSubnetName:   "{{ prefix }}_sub_mgmt"
     mgmtIpAddrBigIp1: "10.0.0.245"
     externalSubnetName: "{{ prefix }}_sub_ext"  
     extIpAddrBigIp1:  "10.0.10.245"
-    extVipAddr1:      "10.0.10.10"
+    extVipAddr1:      "10.0.10.246"
     internalSubnetName: "{{ prefix }}_sub_int" 
     intIpAddrBigIp1:  "10.0.20.245"
     managedRoutes:    "10.0.10.0/24,10.0.20.0/24"
