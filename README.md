@@ -2,33 +2,25 @@
 
 ## Prerequesites
     1. Build Ansible/Azure Docker container
-      **docker build -t agility2018 .**
-    2. Run the built container
-       ** docker run --rm -it agility2018 **
-    2.1 You can utilize a -v option if you'd like to pass a local subdirectory into the container. Example:
-       ** docker run --rm -it -v /user/someuser/subdir:/home/ansible/subdir **
-    3. Clone the github repository
-       ** git clone https://github.com/ajgerace/azure-f5 **
-    4. Setup Ansible Vault variable file (utilizes vi command)
-       ** ansible-vault edit group_vars/all/vault.sample.yaml **
-    4.1. Edit each of the entries
-    | Variable | Value |
-    --------------------
-    | azure_client_id| | 
-    | azure_secret| | 
-    | azure_subscription_id| |
-    | azure_tenant_id| |
-    | azure_user| |
-    | azure_user_pass | |
+      ` docker build -t agility2018 . `
 
-    4.2. Save changes
-    4.2.1. Write changes to group_vars/all/vault.yml
-    4.3. Encrypt variable file
-         ** ansible-vault encrypt group_vars/all/vault.yml **
-         You will be prompted for a passphrase
-    5.  Run ansible playbook 
-        **ansible-playbook f5agililty.yml -e deploy_state=present --tags="rg,2nic,app" ** 
-        This example will create resource group, a standalone 2 NIC BIG-IP and create application servers.
+    2. Run the built container
+      ` docker run --rm -it agility2018 `
+      2.1. You can utilize a -v option if you'd like to pass a local subdirectory into the container. Example:
+       ` docker run --rm -it -v /user/someuser/subdir:/home/ansible/subdir `
+      2.2. Or you can run the container without the -v option 
+      ` docker run -it --rm agility2018 `
+    3. Clone the github repository
+       ` git clone https://github.com/ajgerace/azure-f5 `
+    4. Create environment variables utilizing the student ID and password provided by the instructor
+       ` export AZURE_USERNAME=studentX@domain.onmicrosoft.com `
+       ` export AZURE_PW=XXXXX ` 
+    5. Run bash script to create the Azure Service Principal and Secret
+       ` ./spCreate.sh `
+    6. Edit the group_vars/all/vault.yml file 
+      6.1. Paste the azure variables created in step 5 in and save the file
+      6.2. Encrypt the vault.yml file
+        ` ansible-vault encrypt group_vars/all/vault.yml ` 
 
 ## Lab Outline
 * Demonstrate F5 typical deployments in Azure Cloud. Each  deployment will utlize a single resource group and two Ubuntu application servers (Bodgeit or something similar).

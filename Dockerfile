@@ -1,10 +1,10 @@
 FROM alpine:latest
 LABEL maintainer="Anthony Gerace"
-LABEL version="1.1"
+LABEL version="1.2"
 LABEL description="F5 Azure Agility lab docker container"
 
 RUN apk add --update --no-cache  git py-pip vim curl openssh-client  \
-  libffi-dev openssl-dev python-dev gcc make musl-dev util-linux bash
+  libffi-dev openssl-dev python-dev gcc make musl-dev util-linux bash jq
 
 RUN pip install --no-cache-dir --upgrade pip  
 RUN pip install ansible \
