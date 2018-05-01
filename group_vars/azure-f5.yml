@@ -1,22 +1,23 @@
 # enivronment variables for an azure deployment    
-    prefix:           "ag-student"
+    prefix:           "f5az-student"
     az_rg_vnet:       "10.0.0.0/16"
     location:         eastus
+    deployment:       "2nic"
     my_ip:            "71.184.69.85"
-    dnsLabel:         "{{ prefix }}-agilty"
-    instanceName:     "vadc01"
+    dnsLabel:         "{{ prefix }}"
+    instanceName:     "vadc"
     instanceType:     "Standard_D3_v2" 
     imageName:        "Best"
     bigIpVersion:     "13.1.0200"
     licensedLimit:    "25m"
-    numOfExtIps:      1
+    numOfExtIps:      5
     vnetName:         "{{ prefix }}_rg_vnet"
     vnetResGroupName: "{{ prefix }}_rg"
     mgmtSubnetName:   "{{ prefix }}_sub_mgmt"
     mgmtIpAddrBigIp1: "10.0.0.245"
     externalSubnetName: "{{ prefix }}_sub_ext"  
     extIpAddrBigIp1:  "10.0.10.245"
-    extVipAddr1:      "10.0.10.246"
+    extVipAddr1:      "10.0.10.10"
     internalSubnetName: "{{ prefix }}_sub_int" 
     intIpAddrBigIp1:  "10.0.20.245"
     managedRoutes:    "10.0.10.0/24,10.0.20.0/24"
@@ -28,90 +29,10 @@
       - { name: "{{ prefix}}_sub_mgmt", cidr: "10.0.0.0/24", resGroup: "{{ prefix }}_rg", secGroup: "{{ prefix }}_sg_mgmt", vnet: "{{ prefix }}_rg_vnet" }
       - { name: "{{ prefix }}_sub_ext", cidr: "10.0.10.0/24", resGroup: "{{ prefix }}_rg", secGroup: "{{ prefix }}_sg_ext", vnet: "{{ prefix }}_rg_vnet" }
       - { name: "{{ prefix }}_sub_int", cidr: "10.0.20.0/24", resGroup: "{{ prefix }}_rg", secGroup: "{{ prefix }}_sg_int", vnet: "{{ prefix }}_rg_vnet" }
-#    secGroups:
-#      - { name: "{{ prefix }}_sg_mgmt", rg: "{{ prefix }}_rg" }
-#      - { name: "{{ prefix }}_sg_ext",  rg: "{{ prefix }}_rg" }
-#      - { name: "{{ prefix }}_sg_int",  rg: "{{ prefix }}_rg" }
 
     appServers:
-      - { name: "{{ prefix}}_vm_bodgeit01", shortName: "bodgeit01", instanceType: "Standard_B1s" }
-      - { name: "{{ prefix}}_vm_bodgeit02", shortName: "bodgeit02", instanceType: "Standard_B1s" }
-
-    mgmt_rules:
-      - name: Allow_SSH
-        protocol: Tcp
-        source_address_prefix: "{{ my_ip }}"
-        destination_port_range: 22
-        access: Allow 
-        direction: Inbound
-        priority: 100
-      - name: Allow_HTTPS
-        protocol: Tcp
-        source_address_prefix: "{{ my_ip }}"
-        destination_port_range: 443
-        access: Allow 
-        direction: Inbound
-        priority: 101
-
-    ext_rules:
-      - name: Allow_80
-        protocol: Tcp
-        source_address_prefix: "{{ my_ip }}"
-        destination_port_range: 80
-        access: Allow 
-        direction: Inbound
-        priority: 100
-      - name: Allow_443
-        protocol: Tcp
-        source_address_prefix: "{{ my_ip }}"
-        destination_port_range: 443
-        access: Allow 
-        direction: Inbound
-        priority: 101
-
-    int_rules:
-      - name: Allow_80
-        protocol: Tcp
-        source_address_prefix: "{{ my_ip }}"
-        destination_port_range: 80
-        access: Allow 
-        direction: Inbound
-        priority: 100
-      - name: Allow_443
-        protocol: Tcp
-        source_address_prefix: "{{ my_ip }}"
-        destination_port_range: 443
-        access: Allow 
-        direction: Inbound
-        priority: 101
-      - name: Allow_8080
-        protocol: Tcp
-        source_address_prefix: "{{ my_ip }}"
-        destination_port_range: 8080
-        access: Allow 
-        direction: Inbound
-        priority: 102
-      - name: Allow_outbound_80
-        protocol: Tcp
-        source_address_prefix: "{{ az_rg_vnet }}"
-        destination_port_range: 80
-        access: Allow 
-        direction: Outbound
-        priority: 103
-      - name: Allow_outbound_443
-        protocol: Tcp
-        source_address_prefix: "{{ az_rg_vnet }}"
-        destination_port_range: 443
-        access: Allow 
-        direction: Outbound
-        priority: 104
-      - name: Allow_outbound_22
-        protocol: Tcp
-        source_address_prefix: "{{ az_rg_vnet }}"
-        destination_port_range: 22
-        access: Allow 
-        direction: Outbound
-        priority: 105
+      - { name: "vm_bodgeit01", shortName: "bodgeit01", instanceType: "Standard_B1s" }
+      - { name: "vm_bodgeit02", shortName: "bodgeit02", instanceType: "Standard_B1s" }
 
     baseProfileName: f5demo
 

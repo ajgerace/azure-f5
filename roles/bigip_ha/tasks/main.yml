@@ -63,6 +63,14 @@
         allowUsageAnalytics: 
           value: "Yes"                
     tags: create_f5
+
+  - name: Modify BIGIP ext security group
+    azure_rm_securitygroup:
+      cert_validation_mode: ignore
+      name: "{{ dnsLabel }}-ext-nsg"
+      rules: "{{ ext_rules }}"
+      resource_group: "{{ vnetResGroupName }}"
+      state: "{{ deploy_state }}"
  
   - include_role: 
       name: setup_facts

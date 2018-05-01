@@ -1,0 +1,79 @@
+# Security group rule set
+
+
+    mgmt_rules:
+      - name: Allow_SSH
+        protocol: Tcp
+        source_address_prefix: "{{ my_ip }}"
+        destination_port_range: 22
+        access: Allow 
+        direction: Inbound
+        priority: 100
+      - name: Allow_HTTPS
+        protocol: Tcp
+        source_address_prefix: "{{ my_ip }}"
+        destination_port_range: 443
+        access: Allow 
+        direction: Inbound
+        priority: 101
+
+    ext_rules:
+      - name: Allow_80
+        protocol: Tcp
+        source_address_prefix: "{{ my_ip }}"
+        destination_port_range: 80
+        access: Allow 
+        direction: Inbound
+        priority: 100
+      - name: Allow_443
+        protocol: Tcp
+        source_address_prefix: "{{ my_ip }}"
+        destination_port_range: 443
+        access: Allow 
+        direction: Inbound
+        priority: 101
+
+    int_rules:
+      - name: Allow_80
+        protocol: Tcp
+        source_address_prefix: "{{ my_ip }}"
+        destination_port_range: 80
+        access: Allow 
+        direction: Inbound
+        priority: 100
+      - name: Allow_443
+        protocol: Tcp
+        source_address_prefix: "{{ my_ip }}"
+        destination_port_range: 443
+        access: Allow 
+        direction: Inbound
+        priority: 101
+      - name: Allow_8080
+        protocol: Tcp
+        source_address_prefix: "{{ my_ip }}"
+        destination_port_range: 8080
+        access: Allow 
+        direction: Inbound
+        priority: 102
+      - name: Allow_outbound_80
+        protocol: Tcp
+        source_address_prefix: "{{ az_rg_vnet }}"
+        destination_port_range: 80
+        access: Allow 
+        direction: Outbound
+        priority: 103
+      - name: Allow_outbound_443
+        protocol: Tcp
+        source_address_prefix: "{{ az_rg_vnet }}"
+        destination_port_range: 443
+        access: Allow 
+        direction: Outbound
+        priority: 104
+      - name: Allow_outbound_22
+        protocol: Tcp
+        source_address_prefix: "{{ az_rg_vnet }}"
+        destination_port_range: 22
+        access: Allow 
+        direction: Outbound
+        priority: 105
+
