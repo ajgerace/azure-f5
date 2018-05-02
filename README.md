@@ -9,6 +9,7 @@
   `git clone https://github.com/ajgerace/azure-f5`
 4. Create environment variables utilizing the student ID and password provided by the instructor
   ` export AZURE_USERNAME=studentX@domain.onmicrosoft.com `
+  
   ` export AZURE_PW=XXXXX ` 
 5. Run bash script to create the Azure Service Principal and Secret
   ` ./spCreate.sh `
