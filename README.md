@@ -1,26 +1,24 @@
 # F5 Architectures in Microsoft Azure Cloud
 
-## Prerequesites
-    1. Build Ansible/Azure Docker container
-      ` docker build -t agility2018 . `
+## Prerequisites
+1. Build Docker container
+   `docker build -t agility2018 . `
+2. Run the container
+  `docker run -it --rm agility2018 `
+3. Clone the github repository 
+  `git clone https://github.com/ajgerace/azure-f5`
+4. Create environment variables utilizing the student ID and password provided by the instructor
+  ` export AZURE_USERNAME=studentX@domain.onmicrosoft.com `
+  ` export AZURE_PW=XXXXX ` 
+5. Run bash script to create the Azure Service Principal and Secret
+  ` ./spCreate.sh `
+6. Edit the group_vars/all/vault.yml file 
 
-    2. Run the built container
-      ` docker run --rm -it agility2018 `
-      2.1. You can utilize a -v option if you'd like to pass a local subdirectory into the container. Example:
-       ` docker run --rm -it -v /user/someuser/subdir:/home/ansible/subdir `
-      2.2. Or you can run the container without the -v option 
-      ` docker run -it --rm agility2018 `
-    3. Clone the github repository
-       ` git clone https://github.com/ajgerace/azure-f5 `
-    4. Create environment variables utilizing the student ID and password provided by the instructor
-       ` export AZURE_USERNAME=studentX@domain.onmicrosoft.com `
-       ` export AZURE_PW=XXXXX ` 
-    5. Run bash script to create the Azure Service Principal and Secret
-       ` ./spCreate.sh `
-    6. Edit the group_vars/all/vault.yml file 
-      6.1. Paste the azure variables created in step 5 in and save the file
-      6.2. Encrypt the vault.yml file
-        ` ansible-vault encrypt group_vars/all/vault.yml ` 
+ 6.1. Paste the azure variables created in step 5 in and save the file
+
+ 6.2. Encrypt the vault.yml file
+  ` ansible-vault encrypt group_vars/all/vault.yml ` 
+
 
 ## Lab Outline
 * Demonstrate F5 typical deployments in Azure Cloud. Each  deployment will utlize a single resource group and two Ubuntu application servers (Bodgeit or something similar).
