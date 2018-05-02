@@ -80,7 +80,7 @@
       name: create_vs
   
   - debug: 
-      msg: "BIG-IP can be accessed via https://{{ bigipMgmtIp }} and vip1 {{ bigipVip1Pip }}" 
+      msg: "BIG-IP can be accessed via https://{{ bigipMgmtIp }} and vip1 http://{{ bigipVip1Pip }}" 
 
 
 
