@@ -2,12 +2,15 @@
 
 ## Prerequisites
 1. Build Docker container
+
    `docker build -t agility2018 . `
 
 2. Run the container
+
   `docker run -it --rm agility2018 `
 
 3. Clone the github repository
+
   `git clone https://github.com/ajgerace/azure-f5`
 
 4. Create environment variables utilizing the student ID and password provided by the instructor
@@ -55,13 +58,15 @@
     1. Single NIC configuration - Azure Portal
 
     2. 2 NIC deployment - Ansible playbook
-       2.1. Run Ansible playbook with deploy_state=present to create deployment
+       2.1. Edit group_vars/azure-f5.yml and replace value of my_ip with your public IP address (https://www.whatismyip.com/)
+       
+       2.2. Run Ansible playbook with deploy_state=present to create deployment
 
          `ansible-playbook f5agility.yml -e deploy_state=present `
 
-       2.1.1. Access virtual server, did you get the home page?
+       2.2.1. Access virtual server, did you get the home page?
 
-       2.2. Run the ansible playbook with deploy_state=absent to destroy deployment
+       2.3. Run the ansible playbook with deploy_state=absent to destroy deployment
 
          `ansible-playbook f5agility.yml -e deploy_state=absent`
 
