@@ -1,16 +1,16 @@
-# enivronment variables for an azure deployment    
+# enivronment variables for an azure deployment
 
 
     deployment:       "2nic"
-    my_ip:            "71.184.69.85"
+#    my_ip:            "71.184.69.85"
 
 
-    prefix:           "f5az-student"
+    prefix:           "{{ azure_user }}"
     az_rg_vnet:       "10.0.0.0/16"
     location:         eastus
     dnsLabel:         "{{ prefix }}"
     instanceName:     "vadc"
-    instanceType:     "Standard_D3_v2" 
+    instanceType:     "Standard_D3_v2"
     imageName:        "Best"
     bigIpVersion:     "13.1.0200"
     licensedLimit:    "25m"
@@ -19,10 +19,10 @@
     vnetResGroupName: "{{ prefix }}_rg"
     mgmtSubnetName:   "{{ prefix }}_sub_mgmt"
     mgmtIpAddrBigIp1: "10.0.0.245"
-    externalSubnetName: "{{ prefix }}_sub_ext"  
+    externalSubnetName: "{{ prefix }}_sub_ext"
     extIpAddrBigIp1:  "10.0.10.245"
     extVipAddr1:      "10.0.10.246"
-    internalSubnetName: "{{ prefix }}_sub_int" 
+    internalSubnetName: "{{ prefix }}_sub_int"
     intIpAddrBigIp1:  "10.0.20.245"
     managedRoutes:    "10.0.10.0/24,10.0.20.0/24"
     routeTableTag:    ""
@@ -38,6 +38,5 @@
       - { name: "vm_bodgeit01", shortName: "bodgeit01", instanceType: "Standard_B1s" }
       - { name: "vm_bodgeit02", shortName: "bodgeit02", instanceType: "Standard_B1s" }
 
+
     baseProfileName: f5demo
-
-

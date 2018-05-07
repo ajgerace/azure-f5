@@ -28,7 +28,7 @@
       receive: "HTTP/1.1 200"
       validate_certs: no
     delegate_to: localhost
-    tags: create_vs
+    tags: vs
 
   - name: Create bodgeit pool
     bigip_pool:
@@ -42,7 +42,7 @@
       slow_ramp_time: 120
       validate_certs: no
     delegate_to: localhost      
-    tags: create_vs
+    tags: vs
 
   - name: create service discovery for bodgeit
     bigip_iapp_service:
@@ -82,7 +82,7 @@
           - name: pool__tag_value
             value: bodgeit
     delegate_to: localhost
-    tags: create_vs
+    tags: vs
             
 
   - name: Install maintenance page iRule
@@ -92,7 +92,7 @@
       name: maint_pg_irule
       content: "{{ lookup('file', 'maint_page.irule') }}"
     delegate_to: localhost
-    tags: create_vs
+    tags: vs
 
   - name: Create virtual server
     bigip_virtual_server:
@@ -107,6 +107,12 @@
         - maint_pg_irule
       snat: automap
     delegate_to: localhost
-    tags: create_vs
+    tags: vs
 
- 
+  - debug: 
+      msg: "BIG-IP can be accessed via https://{{ bigipMgmtIp }} and vip1 http://{{ bigipVip1Pip }}" 
+    when: deployment == "2nic"
+
+  - debug: 
+      msg: "BIG-IP1 can be accessed via https://{{ bigipMgmtIp }} BIG-IP2 via https://{{ bigipMgmgIp2 }}, vip1 {{ bigipVip1Pip }}" 
+    when: deployment == "ha"

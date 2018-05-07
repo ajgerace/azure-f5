@@ -1,0 +1,10 @@
+---
+
+- name: Retrieve your public IP
+  uri:
+    url: https://api.ipify.org
+    return_content: yes
+  register: out
+
+- set_fact:
+    my_ip: "{{ out.content }}"

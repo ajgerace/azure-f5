@@ -72,12 +72,12 @@
       resource_group: "{{ vnetResGroupName }}"
       state: "{{ deploy_state }}"
  
-  - include_role: 
-      name: setup_facts
+#  - include_role: 
+#      name: setup_facts
       
-  - include_role:
-      name: create_vs
+#  - include_role:
+#      name: create_vs
  
-  - debug: 
-      msg: "BIG-IP1 can be accessed via https://{{ bigipMgmtIp }} BIG-IP2 via https://{{ bigipMgmgIp2 }}, vip1 {{ bigipVip1Pip }}" 
+#  - debug: 
+#      msg: "BIG-IP1 can be accessed via https://{{ bigipMgmtIp }} BIG-IP2 via https://{{ bigipMgmgIp2 }}, vip1 {{ bigipVip1Pip }}" 
 
