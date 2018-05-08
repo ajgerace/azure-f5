@@ -58,25 +58,38 @@
     1. Single NIC configuration - Azure Portal
 
     2. 2 NIC deployment - Ansible playbook
-       2.1. Edit group_vars/azure-f5.yml and replace value of my_ip with your public IP address (https://www.whatismyip.com/)
-       
-       2.2. Run Ansible playbook with deploy_state=present to create deployment
+
+       2.1. Run Ansible playbook with deploy_state=present to create deployment. A message is printed to the console with the  public IP addresses for BIG-IP management and the virtual server.
 
          `ansible-playbook f5agility.yml -e deploy_state=present `
 
-       2.2.1. Access virtual server, did you get the home page?
+       2.2. Access virtual server, did you get the home page?
 
-       2.3. Run the ansible playbook with deploy_state=absent to destroy deployment
+       2.3. Run the ansible playbook with `deploy_state=absent` to destroy deployment
 
          `ansible-playbook f5agility.yml -e deploy_state=absent`
 
 
     3. Active/Passive 3 NIC deployment - Ansible playbook
+       3.1. Edit group_vars/azure-f5.yml file to enable deployment of A/P BIG-IP cluster.
+
+       3.1.1. Change the following variables
+
+
+          | Variable             | Existing Value | New Value |
+          | --------------------:|------:|-----:|
+          | deployment | 2nic | ha |
+          | extVipAddr1 | 10.0.10.246 | 10.0.10.10 |
+
+       
+       3.2. Re-run the Ansible playbook to create the new deployment. A message is displayed to console with the public IP addresses for the BIG-IP management interfaces as well as the virtual server.
+
+           `ansible-playbook f5agility.yml -e deploy_state=present `  
+
+
+       3.3. Run the ansible playbook with `deploy_state=absent` to destroy deployment
+
+             `ansible-playbook f5agility.yml -e deploy_state=absent`
+
 
     4. Autoscale deployment - Ansible playbook
-
-
-For each deployment the student will stand-up the BIG-IP devices and create application delivery configurations to verify the BIG-IP deployment.  (We can have them create virtual servers, add WAF policy, utilize Service discovery iApp).
-
-
-Once the student completes a given lab they will delete the resource group and proceed to the next lab.

@@ -2,8 +2,6 @@
 
 
     deployment:       "2nic"
-#    my_ip:            "71.184.69.85"
-
 
     prefix:           "{{ azure_user }}"
     az_rg_vnet:       "10.0.0.0/16"
