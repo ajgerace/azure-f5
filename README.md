@@ -25,7 +25,7 @@
 
 6. Create the group_vars/all/vault.yml file
 
-   6.1. Paste the azure variables created in step 5 in and save the file
+   6.1. Copy the azure variables created in step 5
 
 
 | Variable             | Value |
@@ -41,11 +41,13 @@
 
   ` echo "@g!l!+y2018" > .vault-pass.txt`
 
-   6.3. Encrypt the vault.yml file
+   6.3. Create the encrypt the vault.yml file
 
-  ` ansible-vault encrypt group_vars/all/vault.yml `
+  ` ansible-vault create group_vars/all/vault.yml `
 
-  6.4. View the encrypted vault.yml file
+   6.4. Paste the copied variables and save your changes.
+
+   6.5. View the encrypted vault.yml file
   ` less group_vars/all/vault.yml `
 
   ` ansible-vault view group_vars/all/vault.yml `
@@ -81,10 +83,10 @@
           | deployment | 2nic | ha |
           | extVipAddr1 | 10.0.10.246 | 10.0.10.10 |
 
-       
+
        3.2. Re-run the Ansible playbook to create the new deployment. A message is displayed to console with the public IP addresses for the BIG-IP management interfaces as well as the virtual server.
 
-           `ansible-playbook f5agility.yml -e deploy_state=present `  
+           `ansible-playbook f5agility.yml -e deploy_state=present`  
 
 
        3.3. Run the ansible playbook with `deploy_state=absent` to destroy deployment

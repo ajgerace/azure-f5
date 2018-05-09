@@ -3,7 +3,7 @@
 #Student Script#
 
 #This Script Creates an Azure Service Principal for Rbac based on the provided Azure Uswername.
-#If student does not have a USERNAME and Password they should ask the instructor for one. 
+#If student does not have a USERNAME and Password they should ask the instructor for one.
 
 #Required Enviroment Variable
 #AZURE_USERNAME=
@@ -35,13 +35,12 @@ AZURE_SECRET="export AZURE_SECRET=$SP_PASSWORD"
 secret="azure_secret: $SP_PASSWORD"
 
 #Response sent to client
-echo "Cut and Paste the SP ENV Variables"
+echo "Cut and Paste the SP ENV Variables "
 echo "=================================="
-echo $AZURE_SUBSCRIPTION_ID
-echo $AZURE_TENANT
-echo $AZURE_CLIENT_ID
-echo $AZURE_SECRET
-echo "=================================="
+#echo $AZURE_SUBSCRIPTION_ID
+#echo $AZURE_TENANT
+#echo $AZURE_CLIENT_ID
+#echo $AZURE_SECRET
 echo $client_id
 echo $secret
 echo $subscription_id
@@ -49,7 +48,3 @@ echo $tenant
 echo
 echo $az_name
 echo $az_pass
-
-
-
-
