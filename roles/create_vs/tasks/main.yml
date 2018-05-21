@@ -9,7 +9,7 @@
     delegate_to: localhost
     loop:
       - { name: asm, level: minimum }
-      - { name: apm, level: minimum }
+      - { name: gtm, level: minimum }
       - { name: avr, level: minimum }
 
   - name: Wait for BIG-IP to become ready after module provisioning
@@ -19,7 +19,7 @@
       timeout: 180
     delegate_to: localhost
 
-    
+
   - name: Create HTTP head monitor
     bigip_monitor_http:
       state: "{{ deploy_state }}"
@@ -41,7 +41,7 @@
          - "{{ baseProfileName }}_http_head_mon"
       slow_ramp_time: 120
       validate_certs: no
-    delegate_to: localhost      
+    delegate_to: localhost
     tags: vs
 
   - name: create service discovery for bodgeit
@@ -83,15 +83,18 @@
             value: bodgeit
     delegate_to: localhost
     tags: vs
-            
 
-  - name: Install maintenance page iRule
-    bigip_irule:  
+
+  - name: Install iRules
+    bigip_irule:
       validate_certs: no
       module: ltm
-      name: maint_pg_irule
-      content: "{{ lookup('file', 'maint_page.irule') }}"
+      name: "{{ item.name }}"
+      content: "{{ lookup('file',  item.file ) }}"
     delegate_to: localhost
+    loop:
+      - { name: maint_pg_irule, file: maint_page.irule }
+      - { name: bodgeit_irule, file: bodgeit.irule }
     tags: vs
 
   - name: Create virtual server
@@ -100,19 +103,20 @@
       name: bodgeit_vs
       destination: "{{ extVipAddr1 }}"
       pool: "bodgeit_pool"
-      port: "80"  
+      port: "80"
       all_profiles:
         - http
       all_rules:
+        - bodgeit_irule
         - maint_pg_irule
       snat: automap
     delegate_to: localhost
     tags: vs
 
-  - debug: 
-      msg: "BIG-IP can be accessed via https://{{ bigipMgmtIp }} and vip1 http://{{ bigipVip1Pip }}" 
+  - debug:
+      msg: "BIG-IP can be accessed via https://{{ bigipMgmtIp }} and vip1 http://{{ bigipVip1Pip }}"
     when: deployment == "2nic"
 
-  - debug: 
-      msg: "BIG-IP1 can be accessed via https://{{ bigipMgmtIp }} BIG-IP2 via https://{{ bigipMgmgIp2 }}, vip1 {{ bigipVip1Pip }}" 
+  - debug:
+      msg: "BIG-IP1 can be accessed via https://{{ bigipMgmtIp }} BIG-IP2 via https://{{ bigipMgmgIp2 }}, vip1 {{ bigipVip1Pip }}"
     when: deployment == "ha"

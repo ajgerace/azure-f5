@@ -7,14 +7,14 @@
       resource_group_name: "{{ prefix }}_rg"
       location: "{{ location }}"
       template_link: "https://raw.githubusercontent.com/F5Networks/f5-azure-arm-templates/master/supported/standalone/2nic/existing_stack/PAYG/azuredeploy.json"
-      parameters:   
-        adminUsername: 
+      parameters:
+        adminUsername:
           value: "{{ azure_user }}"
-        adminPassword:
+        adminPasswordOrKey:
           value: "{{ azure_user_pass }}"
-        dnsLabel: 
+        dnsLabel:
           value: "{{ dnsLabel }}"
-        instanceName: 
+        instanceName:
           value: "{{ instanceName }}"
         instanceType:
           value: "{{ instanceType }}"
@@ -23,7 +23,7 @@
         bigIpVersion:
           value: "{{ bigIpVersion }}"
         licensedBandwidth:
-          value: "{{ licensedLimit }}"         
+          value: "{{ licensedLimit }}"
         numberOfExternalIps:
           value: "{{ numOfExtIps }}"
         vnetName:
@@ -34,20 +34,20 @@
           value: "{{ mgmtSubnetName }}"
         mgmtIpAddress:
             value: "{{ mgmtIpAddrBigIp1 }}"
-        externalSubnetName: 
-          value: "{{ externalSubnetName }}" 
-        externalIpAddressRangeStart: 
+        externalSubnetName:
+          value: "{{ externalSubnetName }}"
+        externalIpAddressRangeStart:
           value: "{{ extIpAddrBigIp1 }}"
-        ntpServer:  
+        ntpServer:
           value: "{{ ntpServer }}"
-        timeZone: 
+        timeZone:
           value: "{{ timeZone }}"
-        restrictedSrcAddress:  
-          value: "*"      
-        tagValues: 
+        restrictedSrcAddress:
+          value: "*"
+        tagValues:
           value: "{{ tagValues }}"
-        allowUsageAnalytics: 
-          value: "Yes"           
+        allowUsageAnalytics:
+          value: "Yes"
 
   - name: Modify BIGIP ext security group
     azure_rm_securitygroup:
@@ -63,7 +63,7 @@
 #      resource_group: "{{ vnetResGroupName }}"
 #      name: "{{dnsLabel}}-mgmt-pip"
 #    register: az_2nic_mgmt
- 
+
 
 #  - name: Get Public IP BIGIP VIP1
 #    azure_rm_publicipaddress_facts:
@@ -71,18 +71,10 @@
 #      name: "{{dnsLabel}}-ext-pip0"
 #    register: az_pip_vip1
 
-#  - name: Create facts from BIG-IP deployment 
+#  - name: Create facts from BIG-IP deployment
 #    set_fact:
 #      bigipMgmtIp: "{{ az_2nic_mgmt.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
 #      bigipVip1Pip: "{{ az_pip_vip1.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
- 
+
 #  - include_role:
 #     name: create_vs
-  
-
-
-
-
-    
-
-
