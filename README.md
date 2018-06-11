@@ -63,7 +63,7 @@
 
        2.1. Run Ansible playbook with deploy_state=present to create deployment. A message is printed to the console with the  public IP addresses for BIG-IP management and the virtual server.
 
-         `ansible-playbook f5agility.yml -e deploy_state=present `
+         `ansible-playbook -i notahost, f5agility.yml -e deploy_state=present `
 
        2.2. Access virtual server, did you get the home page?
 
@@ -86,7 +86,7 @@
 
        3.2. Re-run the Ansible playbook to create the new deployment. A message is displayed to console with the public IP addresses for the BIG-IP management interfaces as well as the virtual server.
 
-           `ansible-playbook f5agility.yml -e deploy_state=present`  
+           `ansible-playbook -i notahost, f5agility.yml -e deploy_state=present`  
 
 
        3.3. Run the ansible playbook with `deploy_state=absent` to destroy deployment

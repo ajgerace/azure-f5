@@ -14,7 +14,7 @@
     name: "{{ item.name }}_inf"
     public_ip_address_name: "{{ item.name }}_pip"
     resource_group: "{{ vnetResGroupName }}"
-    security_group_name: "{{ prefix }}_sg_ext"  
+    security_group_name: "{{ prefix }}_sg_ext"
     subnet_name: "{{ externalSubnetName }}"
     virtual_network_name: "{{ vnetName }}"
   loop: "{{ appServers }}"
@@ -38,8 +38,8 @@
       offer: UbuntuServer
       publisher: Canonical
       sku: '16.04-LTS'
-      version: latest  
-    tags: "appName=bodgeit"    
+      version: latest
+    tags: "appName=bodgeit"
   tags: app
-  delegation_to: localhost
+  delegate_to: localhost
   with_items: "{{ appServers }}"

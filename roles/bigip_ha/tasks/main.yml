@@ -7,14 +7,16 @@
       resource_group_name: "{{ vnetResGroupName }}"
       location: "{{ location }}"
       template_link: "https://raw.githubusercontent.com/F5Networks/f5-azure-arm-templates/master/supported/cluster/failover-api/existing_stack/PAYG/azuredeploy.json"
-      parameters:   
-        adminUsername: 
+      parameters:
+        adminUsername:
           value: "{{ azure_user }}"
-        adminPassword:
+        authenticationType:
+          value: "password"
+        adminPasswordOrKey:
           value: "{{ azure_user_pass }}"
-        dnsLabel: 
+        dnsLabel:
           value: "{{ dnsLabel }}"
-        instanceName: 
+        instanceName:
           value: "{{ instanceName }}"
         instanceType:
           value: "{{ instanceType }}"
@@ -23,7 +25,7 @@
         bigIpVersion:
           value: "{{ bigIpVersion }}"
         licensedBandwidth:
-          value: "{{ licensedLimit }}"         
+          value: "{{ licensedLimit }}"
         numberOfExternalIps:
           value: "{{ numOfExtIps }}"
         vnetName:
@@ -34,34 +36,34 @@
           value: "{{ mgmtSubnetName }}"
         mgmtIpAddressRangeStart:
           value: "{{ mgmtIpAddrBigIp1 }}"
-        externalSubnetName: 
+        externalSubnetName:
           value: "{{ externalSubnetName }}"
-        externalIpSelfAddressRangeStart: 
-          value: "{{ extIpAddrBigIp1 }}" 
-        externalIpAddressRangeStart: 
+        externalIpSelfAddressRangeStart:
+          value: "{{ extIpAddrBigIp1 }}"
+        externalIpAddressRangeStart:
           value: "{{ extVipAddr1 }}"
-        internalSubnetName: 
+        internalSubnetName:
           value: "{{ internalSubnetName }}"
-        internalIpAddressRangeStart: 
+        internalIpAddressRangeStart:
           value: "{{ intIpAddrBigIp1 }}"
-        tenantId: 
-          value: "{{ azure_tenant_id }}" 
-        clientId: 
+        tenantId:
+          value: "{{ azure_tenant_id }}"
+        clientId:
           value: "{{ azure_client_id }}"
-        servicePrincipalSecret:  
+        servicePrincipalSecret:
           value: "{{ azure_secret}}"
-        managedRoutes:  
+        managedRoutes:
           value: "{{ managedRoutes }}"
-        ntpServer:  
+        ntpServer:
           value: "{{ ntpServer }}"
-        timeZone: 
+        timeZone:
           value: "{{ timeZone }}"
-        restrictedSrcAddress:  
-          value: "*"      
-        tagValues: 
+        restrictedSrcAddress:
+          value: "*"
+        tagValues:
           value: "{{ tagValues }}"
-        allowUsageAnalytics: 
-          value: "Yes"                
+        allowUsageAnalytics:
+          value: "Yes"
     tags: create_f5
 
   - name: Modify BIGIP ext security group
@@ -71,13 +73,12 @@
       rules: "{{ ext_rules }}"
       resource_group: "{{ vnetResGroupName }}"
       state: "{{ deploy_state }}"
- 
-#  - include_role: 
+
+#  - include_role:
 #      name: setup_facts
-      
+
 #  - include_role:
 #      name: create_vs
- 
-#  - debug: 
-#      msg: "BIG-IP1 can be accessed via https://{{ bigipMgmtIp }} BIG-IP2 via https://{{ bigipMgmgIp2 }}, vip1 {{ bigipVip1Pip }}" 
 
+#  - debug:
+#      msg: "BIG-IP1 can be accessed via https://{{ bigipMgmtIp }} BIG-IP2 via https://{{ bigipMgmgIp2 }}, vip1 {{ bigipVip1Pip }}"
