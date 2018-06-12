@@ -6,13 +6,11 @@
       cert_validation_mode: ignore
       resource_group_name: "{{ vnetResGroupName }}"
       location: "{{ location }}"
-      template_link: "https://raw.githubusercontent.com/F5Networks/f5-azure-arm-templates/master/supported/cluster/failover-api/existing_stack/PAYG/azuredeploy.json"
+      template: "{{ lookup('file', 'azuredeploy_5_0.json' ) }}"
       parameters:
         adminUsername:
           value: "{{ azure_user }}"
-        authenticationType:
-          value: "password"
-        adminPasswordOrKey:
+        adminPassword:
           value: "{{ azure_user_pass }}"
         dnsLabel:
           value: "{{ dnsLabel }}"
@@ -26,10 +24,6 @@
           value: "{{ bigIpVersion }}"
         licensedBandwidth:
           value: "{{ licensedLimit }}"
-        numberOfAdditionalNics:
-          value: 0
-        additionalNicLocation:
-          value: "OPTIONAL"
         numberOfExternalIps:
           value: "{{ numOfExtIps }}"
         vnetName:
@@ -66,8 +60,6 @@
           value: "*"
         tagValues:
           value: "{{ tagValues }}"
-        customImage:
-          value: "OPTIONAL"
         allowUsageAnalytics:
           value: "Yes"
     tags: create_f5
@@ -79,12 +71,3 @@
       rules: "{{ ext_rules }}"
       resource_group: "{{ vnetResGroupName }}"
       state: "{{ deploy_state }}"
-
-#  - include_role:
-#      name: setup_facts
-
-#  - include_role:
-#      name: create_vs
-
-#  - debug:
-#      msg: "BIG-IP1 can be accessed via https://{{ bigipMgmtIp }} BIG-IP2 via https://{{ bigipMgmgIp2 }}, vip1 {{ bigipVip1Pip }}"

@@ -1,13 +1,13 @@
 # enivronment variables for an azure deployment
 
 
-    deployment:       "ha"
+    deployment:       "2nic"
 
     prefix:           "{{ azure_user }}"
     az_rg_vnet:       "10.0.0.0/16"
     location:         eastus
     dnsLabel:         student #"{{ prefix }}"
-    instanceName:     "vadc"
+    instanceName:     "f5vm01"
     instanceType:     "Standard_D3_v2"
     imageName:        "Best"
     bigIpVersion:     "13.1.0200"
@@ -19,7 +19,7 @@
     mgmtIpAddrBigIp1: "10.0.0.245"
     externalSubnetName: "{{ prefix }}_sub_ext"
     extIpAddrBigIp1:  "10.0.10.245"
-    extVipAddr1:      "10.0.10.10"
+    extVipAddr1:      "10.0.10.246"
     internalSubnetName: "{{ prefix }}_sub_int"
     intIpAddrBigIp1:  "10.0.20.245"
     managedRoutes:    "NOT_SPECIFIED"

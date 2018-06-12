@@ -6,11 +6,11 @@
       cert_validation_mode: ignore
       resource_group_name: "{{ prefix }}_rg"
       location: "{{ location }}"
-      template_link: "https://raw.githubusercontent.com/F5Networks/f5-azure-arm-templates/master/supported/standalone/2nic/existing_stack/PAYG/azuredeploy.json"
+      template: "{{ lookup('file', 'azuredeploy_5_0.json') }}"
       parameters:
         adminUsername:
           value: "{{ azure_user }}"
-        adminPasswordOrKey:
+        adminPassword:
           value: "{{ azure_user_pass }}"
         dnsLabel:
           value: "{{ dnsLabel }}"
@@ -56,25 +56,3 @@
       rules: "{{ ext_rules }}"
       resource_group: "{{ vnetResGroupName }}"
       state: "{{ deploy_state }}"
-
-
-#  - name: Get Public IP BIGIP-A MGMT IP
-#    azure_rm_publicipaddress_facts:
-#      resource_group: "{{ vnetResGroupName }}"
-#      name: "{{dnsLabel}}-mgmt-pip"
-#    register: az_2nic_mgmt
-
-
-#  - name: Get Public IP BIGIP VIP1
-#    azure_rm_publicipaddress_facts:
-#      resource_group: "{{ vnetResGroupName }}"
-#      name: "{{dnsLabel}}-ext-pip0"
-#    register: az_pip_vip1
-
-#  - name: Create facts from BIG-IP deployment
-#    set_fact:
-#      bigipMgmtIp: "{{ az_2nic_mgmt.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
-#      bigipVip1Pip: "{{ az_pip_vip1.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
-
-#  - include_role:
-#     name: create_vs
