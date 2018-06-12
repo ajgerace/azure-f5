@@ -7,10 +7,9 @@
       module: "{{ item.name }}"
       level: "{{ item.level }}"
     delegate_to: localhost
-    loop:
-      - { name: asm, level: minimum }
-      - { name: gtm, level: minimum }
-      - { name: avr, level: minimum }
+    loop: "{{ f5Modules }}"
+    tags: vs
+
 
   - name: Wait for BIG-IP to become ready after module provisioning
     bigip_wait:
@@ -18,7 +17,7 @@
       validate_certs: no
       timeout: 180
     delegate_to: localhost
-
+    tags: vs
 
   - name: Create HTTP head monitor
     bigip_monitor_http:
@@ -116,7 +115,9 @@
   - debug:
       msg: "BIG-IP can be accessed via https://{{ bigipMgmtIp }} and vip1 http://{{ bigipVip1Pip }}"
     when: deployment == "2nic"
+    tags: vs
 
   - debug:
       msg: "BIG-IP1 can be accessed via https://{{ bigipMgmtIp }} BIG-IP2 via https://{{ bigipMgmgIp2 }}, vip1 {{ bigipVip1Pip }}"
     when: deployment == "ha"
+    tags: vs

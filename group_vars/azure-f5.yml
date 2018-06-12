@@ -22,7 +22,7 @@
     extVipAddr1:      "10.0.10.10"
     internalSubnetName: "{{ prefix }}_sub_int"
     intIpAddrBigIp1:  "10.0.20.245"
-    managedRoutes:    "10.0.10.0/24,10.0.20.0/24"
+    managedRoutes:    "NOT_SPECIFIED"
     routeTableTag:    ""
     ntpServer:        "0.pool.ntp.org"
     timeZone:         "America/New_York"
@@ -36,5 +36,9 @@
       - { name: "vm_bodgeit01", shortName: "bodgeit01", instanceType: "Standard_B1s" }
       - { name: "vm_bodgeit02", shortName: "bodgeit02", instanceType: "Standard_B1s" }
 
+
+    f5Modules:
+      - { name: asm, level: minimum }
+      - { name: avr, level: minimum }
 
     baseProfileName: f5demo

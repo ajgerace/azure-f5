@@ -26,6 +26,10 @@
           value: "{{ bigIpVersion }}"
         licensedBandwidth:
           value: "{{ licensedLimit }}"
+        numberOfAdditionalNics:
+          value: 0
+        additionalNicLocation:
+          value: "OPTIONAL"
         numberOfExternalIps:
           value: "{{ numOfExtIps }}"
         vnetName:
@@ -62,6 +66,8 @@
           value: "*"
         tagValues:
           value: "{{ tagValues }}"
+        customImage:
+          value: "OPTIONAL"
         allowUsageAnalytics:
           value: "Yes"
     tags: create_f5
