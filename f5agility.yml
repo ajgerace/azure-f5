@@ -30,7 +30,6 @@
     - { role: bigip_2nic,   tags: 2nic, when: deployment == "2nic" and deploy_state == "present" }
     # creates a Active/Passive BIG-IP cluster
     - { role: bigip_ha,     tags: ha,   when: deployment == "ha" and deploy_state == "present" }
-    - { role: bigip_lb,     tags: lb,   when: deployment == "lb" and deploy_state == "present" }
     # setup facts from the BIG-IP deployments
     - { role: setup_facts,  tags: vs,   when: deploy_state == "present" }
     # create an application service on the created BIG-IP device(s)
