@@ -6,7 +6,7 @@
     prefix:           "{{ azure_user }}"
     az_rg_vnet:       "10.0.0.0/16"
     location:         eastus
-    dnsLabel:         student #"{{ prefix }}"
+    dnsLabel:         "{{ prefix }}"
     instanceName:     "f5vm01"
     instanceType:     "Standard_D3_v2"
     imageName:        "Best"
