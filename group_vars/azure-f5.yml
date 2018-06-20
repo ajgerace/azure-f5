@@ -20,6 +20,7 @@
     externalSubnetName: "{{ prefix }}_sub_ext"
     extIpAddrBigIp1:  "10.0.10.245"
     extVipAddr1:      "10.0.10.246"
+    extVipAddr2:      "10.0.10.247"
     internalSubnetName: "{{ prefix }}_sub_int"
     intIpAddrBigIp1:  "10.0.20.245"
     managedRoutes:    "NOT_SPECIFIED"
@@ -42,3 +43,4 @@
       - { name: avr, level: minimum }
 
     baseProfileName: f5demo
+    vsName: bodgeit

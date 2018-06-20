@@ -1,0 +1,31 @@
+---
+
+
+- name: Create a public ip address
+  when: deploy_state == "present"
+  azure_rm_publicipaddress:
+    resource_group: "{{ vnetResGroupName }}"
+    name: "{{ prefix }}-ext-pip1"
+    allocation_method: Static
+    state: "{{ deploy_state }}"
+
+
+- name: Add new IP to ext network interface
+  when: deploy_state == "present"
+  azure_rm_networkinterface:
+    cert_validation_mode: ignore
+    name: "{{ dnsLabel }}-ext"
+    ip_configurations: "{{ ipConfig }}"
+    resource_group: "{{ vnetResGroupName }}"
+    security_group_name: "{{ dnsLabel}}-ext-nsg"
+    subnet_name: "{{ prefix }}_sub_ext"
+    virtual_network_name: "{{ prefix }}_rg_vnet"
+    state: "{{ deploy_state }}"
+
+- name: decom_az_env a public ip address
+  when: deploy_state == "absent"
+  azure_rm_publicipaddress:
+    resource_group: "{{ vnetResGroupName }}"
+    name: "{{ prefix }}-ext-pip1"
+    allocation_method: Static
+    state: "{{ deploy_state }}"

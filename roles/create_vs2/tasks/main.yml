@@ -1,0 +1,66 @@
+---
+# create 2nd virtual server
+
+- name: Create ASM Security policy (RDP)
+  bigip_asm_policy:
+    active: yes
+    name: "{{ vsName }}_waf_policy"
+    state: "{{ deploy_state }}"
+    template: "Rapid Deployment Policy"
+    validate_certs: no
+  delegate_to: localhost
+
+- name: Create LTM policy
+  bigip_policy:
+    name: "{{ vsName }}_sec_policy"
+    state: "{{ deploy_state }}"
+    validate_certs: no
+    rules:
+      - rule1
+
+- name: Add rule to LTM policy
+  bigip_policy_rule:
+    state: "{{ deploy_state }}"
+    validate_certs: no
+    name: rule1
+    policy: "{{ vsName }}_sec_policy"
+    actions:
+      - type: enable
+        asm_policy: "{{ vsName }}_waf_policy"
+
+- name: Create virtual server
+  bigip_virtual_server:
+    partition: Common
+    name: "{{ vsName }}_vs2"
+    destination: "{{ extVipAddr2 }}"
+    pool: "{{ vsName }}_pool"
+    port: "80"
+    profiles:
+      - name: f5-tcp-wan
+        context: client-side
+      - name: f5-tcp-lan
+        context: server-side
+      - name: http
+      - name: websecurity
+    policies:
+      - "{{ vsName }}_sec_policy"
+    irules:
+      - "{{ vsName}}_irule"
+      - maint_pg_irule
+    snat: automap
+  delegate_to: localhost
+  tags: create_vs
+
+- name: Retrieve public IP for
+  azure_rm_publicipaddress_facts:
+    resource_group: "{{ vnetResGroupName }}"
+    name: "{{dnsLabel}}-ext-pip1"
+  register: az_pip_vs2
+
+
+- name: Create facts from BIG-IP deployment
+  set_fact:
+    bigipVip2Pip: "{{ az_pip_vs2.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
+
+- debug:
+    msg: "The new virtual server ({{ extVipAddr2 }}) can be accessed via http://{{ bigipVip2Pip }} "

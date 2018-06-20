@@ -1,0 +1,21 @@
+---
+# IP ipConfiguration
+   ipConfig:
+     - name: "{{ instanceName }}-self-ipconfig"
+       primary: True
+       public_ip_address_name: "{{ dnsLabel }}-self-pip0"
+       private_ip_address: "{{ extIpAddrBigIp1 }}"
+       private_ip_allocation_method: Static
+       public_ip_allocation_method: Static
+     - name: "{{ vnetResGroupName }}-ext-ipconfig0"
+       primary: no
+       public_ip_address_name: "{{ dnsLabel }}-ext-pip0"
+       private_ip_address: "{{ extVipAddr1 }}"
+       private_ip_allocation_method: Static
+       public_ip_allocation_method: Static
+     - name: "{{ vnetResGroupName }}-ext-pip1"
+       primary: no
+       public_ip_address_name: "{{ dnsLabel }}-ext-pip1"
+       private_ip_address: "{{ extVipAddr2 }}"
+       private_ip_allocation_method: Static
+       public_ip_allocation_method: Static
