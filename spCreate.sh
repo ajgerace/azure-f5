@@ -28,7 +28,7 @@ tenant="azure_tenant_id: $(az account list | jq '.[0] .tenantId' --raw-output)"
 
 #Create new SP
 AZURE_CLIENT_ID=$(az ad sp create-for-rbac --name $SP_NAME --password $SP_PASSWORD | jq '.appId' --raw-output)
-[ -z "$AZURE_CLIENT_ID"] && error=1
+[ -z "$AZURE_CLIENT_ID" ] && error=1
 client_id="azure_client_id: ${AZURE_CLIENT_ID}"
 AZURE_CLIENT_ID="export AZURE_CLIENT_ID=${AZURE_CLIENT_ID}"
 
