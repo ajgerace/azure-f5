@@ -1,5 +1,0 @@
-when HTTP_REQUEST {
-	if {[active_members [LB::server pool] ] < 1 } {
-	   HTTP::respond 200 content "<html> <title>Maintenance Page</title><body> We are currently down for maintenance. Please try back later </body></html>"
-	}
-}
