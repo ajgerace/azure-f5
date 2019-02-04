@@ -33,6 +33,6 @@
     # setup facts from the BIG-IP deployments
     - { role: setup_facts,  tags: vs,   when: deploy_state == "present" }
     # create an application service on the created BIG-IP device(s)
-    - { role: create_vs,    tags: vs,   when: deploy_state == "present" }
+    - { role: setup_profiles,    tags: vs,   when: deploy_state == "present" }
     # decommision the resource group
     - { role: decom_az_env, tags: rg,   when: deploy_state == "absent"  }

@@ -6,11 +6,13 @@
       cert_validation_mode: ignore
       resource_group_name: "{{ prefix }}_rg"
       location: "{{ location }}"
-      template: "{{ lookup('file', 'azuredeploy_5_0.json') }}"
+      template: "{{ lookup('file', 'azuredeploy_6_0_1_0.json') }}"
       parameters:
         adminUsername:
           value: "{{ azure_user }}"
-        adminPassword:
+        authenticationType:
+          value: "password"
+        adminPasswordOrKey:
           value: "{{ azure_user_pass }}"
         dnsLabel:
           value: "{{ dnsLabel }}"
@@ -22,8 +24,6 @@
           value: "{{ imageName }}"
         bigIpVersion:
           value: "{{ bigIpVersion }}"
-        licensedBandwidth:
-          value: "{{ licensedLimit }}"
         numberOfExternalIps:
           value: "{{ numOfExtIps }}"
         vnetName:
@@ -38,6 +38,8 @@
           value: "{{ externalSubnetName }}"
         externalIpAddressRangeStart:
           value: "{{ extIpAddrBigIp1 }}"
+        avSetChoice:
+          value: "CREATE_NEW"
         ntpServer:
           value: "{{ ntpServer }}"
         timeZone:
@@ -49,10 +51,10 @@
         allowUsageAnalytics:
           value: "Yes"
 
-  - name: Modify BIGIP ext security group
-    azure_rm_securitygroup:
-      cert_validation_mode: ignore
-      name: "{{ dnsLabel }}-ext-nsg"
-      rules: "{{ ext_rules }}"
-      resource_group: "{{ vnetResGroupName }}"
-      state: "{{ deploy_state }}"
+#  - name: Modify BIGIP ext security group
+#    azure_rm_securitygroup:
+#      cert_validation_mode: ignore
+#      name: "{{ dnsLabel }}-ext-nsg"
+#      rules: "{{ ext_rules }}"
+#      resource_group: "{{ vnetResGroupName }}"
+#      state: "{{ deploy_state }}"

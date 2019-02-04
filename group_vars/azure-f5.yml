@@ -2,16 +2,15 @@
 
 
     deployment:       "2nic"
-
+    bigipMgmtIp:      "10.0.0.251"
     prefix:           "{{ azure_user }}"
     az_rg_vnet:       "10.0.0.0/16"
     location:         eastus
     dnsLabel:         "{{ prefix }}"
     instanceName:     "f5vm01"
     instanceType:     "Standard_D3_v2"
-    imageName:        "Best"
-    bigIpVersion:     "13.1.0200"
-    licensedLimit:    "25m"
+    imageName:        "AdvancedWaf25Mbps"
+    bigIpVersion:     "13.1.100000"
     numOfExtIps:      1
     vnetName:         "{{ prefix }}_rg_vnet"
     vnetResGroupName: "{{ prefix }}_rg"
@@ -37,10 +36,14 @@
       - { name: "vm_bodgeit01", shortName: "bodgeit01", instanceType: "Standard_B1s" }
       - { name: "vm_bodgeit02", shortName: "bodgeit02", instanceType: "Standard_B1s" }
 
+    roles_path: "roles/create_vs3/files"
+    as3RpmFile: "f5-appsvcs-3.8.0-3.noarch.rpm"
+
 
     f5Modules:
-      - { name: asm, level: minimum }
-      - { name: avr, level: minimum }
+      - { name: asm, level: minimum, state: present }
+      - { name: fps, level: minimum, state: present }
+      - { name: ltm, level: minimum, state: absent }
 
     baseProfileName: f5demo
     vsName: bodgeit
