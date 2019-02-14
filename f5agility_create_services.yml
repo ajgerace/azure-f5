@@ -1,0 +1,26 @@
+---
+- name: Create application services using AS3 
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+
+  environment:
+    AZURE_CLIENT_ID:         "{{ azure_client_id }}"
+    AZURE_SECRET:            "{{ azure_secret }}"
+    AZURE_SUBSCRIPTION_ID:   "{{ azure_subscription_id }}"
+    AZURE_TENANT:            "{{ azure_tenant_id }}"
+    AZURE_CERT_VALIDATION:   "ignore"
+    F5_USER:                 "{{ azure_user }}"
+    F5_PASSWORD:             "{{ azure_user_pass }}"
+    F5_VALIDATE_CERTS:       "no"
+    F5_SERVER:               "{{ bigipMgmtIp }}"
+    F5_SERVER_PORT:          443
+
+
+  vars_files:
+    - "group_vars/azure-f5.yml"
+
+  roles:
+    - { role: setup_facts,  tags: vs,   when: deploy_state == "present" }
+    - { role: create_services, tags: vs, when deploy_state == "present" }

@@ -1,0 +1,22 @@
+---
+# Create application services using AS3
+
+- set_fact:
+    declaration: "{{ lookup('template', 'files/f5demo_as3_azure_bodgeit.j2' )  }}"
+  when: deploy_state == "present"
+
+- name: Write out declaration data
+  local_action: copy content="{{ declaration |to_nice_json }}" dest="/home/ansible/tmp/{{vsName}}_as3_azure_{{location}}_output.json"
+  when: deploy_state == "present"
+
+- debug:
+    var: declaration
+  when: deploy_state == "present"
+
+- name: Deploy an app service configuration
+  bigip_appsvcs_extension:
+    content: "{{ declaration }}"
+    state:   "{{ deploy_state }}"
+    validate_certs: no
+  delegate_to: localhost
+  when: deploy_state == "present"

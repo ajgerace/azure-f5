@@ -9,7 +9,6 @@
     loop: "{{ f5Modules }}"
     tags: vs
 
-
   - name: Wait for BIG-IP to become ready after module provisioning
     bigip_wait:
       delay: 20
@@ -21,7 +20,7 @@
   - name: Create HTTP head monitor
     bigip_monitor_http:
       state: "{{ deploy_state }}"
-      name: "{{ baseProfileName }}_http_head_mon"
+      name: "{{ baseProfileName }}_http_head"
       send: "HEAD / HTTP/1.0\r\n\r\n"
       receive: "HTTP/1.1 200"
       validate_certs: no
@@ -31,7 +30,7 @@
   - name: Create HTTPS head monitor
     bigip_monitor_https:
       state: "{{ deploy_state }}"
-      name: "{{ baseProfileName }}_https_head_mon"
+      name: "{{ baseProfileName }}_https_head"
       send: "HEAD / HTTP/1.0\r\n\r\n"
       receive: "HTTP/1.1 200"
       validate_certs: no
@@ -59,60 +58,11 @@
       name: "{{ baseProfileName }}-clientssl"
     delegate_to: localhost
 
-  - name: Create application pool
-    bigip_pool:
-      state: present
-      name: "{{ vsName }}_pool"
-      partition: Common
-      monitor_type: single
-      monitors:
-         - "{{ baseProfileName }}_http_head_mon"
-      slow_ramp_time: 120
-      validate_certs: no
+  - name: Create oneConnect profile
+    bigip_profile_oneconnect:
+      name: "{{ baseProfileName }}-oneconnect"
     delegate_to: localhost
-    tags: vs
-
-#  - name: create service discovery for bodgeit
-#    bigip_iapp_service:
-#      name: bodgeit_srvc_dscvry
-#      template: f5.service_discovery
-#      validate_certs: no
-#      parameters:
-#        variables:
-#          - name: basic__advanced
-#            value: "no"
-#          - name: basic__display_help
-#            value: hide
-#          - name: cloud__azure_client_id
-#            value: "{{ azure_client_id }}"
-#          - name: cloud__azure_resource_group
-#            value: "{{ vnetResGroupName }}"
-#          - name: cloud__azure_sp_secret
-#            value: "{{ azure_secret }}"
-#          - name: cloud__azure_subscription_id
-#            value: "{{ azure_subscription_id }}"
-#          - name: cloud__azure_tenant_id
-#            value: "{{ azure_tenant_id }}"
-#          - name: cloud__cloud_provider
-#            value: azure
-#          - name: pool__interval
-#            value: "60"
-#          - name: pool__member_conn_limit
-#            value: "0"
-#          - name: pool__member_port
-#            value: "8080"
-#          - name: pool__pool_to_use
-#            value: "/Common/bodgeit_pool"
-#          - name: pool__public_private
-#            value: private
-#          - name: pool__tag_key
-#            value: appName
-#          - name: pool__tag_value
-#            value: bodgeit
-#    delegate_to: localhost
-#    tags: vs
-
-
+    
   - name: Install iRules
     bigip_irule:
       validate_certs: no
@@ -123,30 +73,4 @@
     loop:
       - { name: maint_pg_irule, file: maint_page.irule }
       - { name: bodgeit_irule, file: bodgeit.irule }
-    tags: vs
-
-#  - name: Create virtual server
-#    bigip_virtual_server:
-#      partition: Common
-#      name: bodgeit_vs
-#      destination: "{{ extVipAddr1 }}"
-#      pool: "bodgeit_pool"
-#      port: "80"
-#      all_profiles:
-#        - http
-#      all_rules:
-#        - bodgeit_irule
-#        - maint_pg_irule
-#      snat: automap
-#    delegate_to: localhost
-#    tags: vs
-
-  - debug:
-      msg: "BIG-IP can be accessed via https://{{ bigipMgmtIp }} and vip1 http://{{ bigipVip1Pip }}"
-    when: deployment == "2nic"
-    tags: vs
-
-  - debug:
-      msg: "BIG-IP1 can be accessed via https://{{ bigipMgmtIp }} BIG-IP2 via https://{{ bigipMgmgIp2 }}, vip1 {{ bigipVip1Pip }}"
-    when: deployment == "ha"
     tags: vs

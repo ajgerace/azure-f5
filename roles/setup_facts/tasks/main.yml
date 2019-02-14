@@ -9,7 +9,7 @@
 
   - name: Retrieve BIG-IP2 Management Public IP
     when: deployment == "ha"
-    azure_rm_publicipaddress_facts: 
+    azure_rm_publicipaddress_facts:
       resource_group: "{{ vnetResGroupName }}"
       name: "{{dnsLabel}}-mgmt-pip1"
     register: az_ha_mgmt2
@@ -20,7 +20,7 @@
       resource_group: "{{ vnetResGroupName }}"
       name: "{{dnsLabel}}-mgmt-pip"
     register: az_2nic_mgmt
- 
+
 
   - name: Retrieve public IP for Vip1
     azure_rm_publicipaddress_facts:
@@ -29,16 +29,25 @@
     register: az_pip_vip1
 
 
-  - name: Create facts from BIG-IP deployment 
+  - name: Create facts from BIG-IP deployment
     when: deployment == "ha"
     set_fact:
       bigipMgmtIp: "{{ az_ha_mgmt1.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
       bigipMgmgIp2: "{{ az_ha_mgmt2.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
       bigipVip1Pip: "{{ az_pip_vip1.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
 
-  - name: Create facts from BIG-IP deployment 
+  - name: Create facts from BIG-IP deployment
     when: deployment == "2nic"
     set_fact:
       bigipMgmtIp: "{{ az_2nic_mgmt.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
       bigipVip1Pip: "{{ az_pip_vip1.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
- 
+
+  - debug:
+      msg: "BIG-IP can be accessed via https://{{ bigipMgmtIp }} and vip1 http://{{ bigipVip1Pip }}"
+    when: deployment == "2nic"
+    tags: vs
+
+  - debug:
+      msg: "BIG-IP1 can be accessed via https://{{ bigipMgmtIp }} BIG-IP2 via https://{{ bigipMgmgIp2 }}, vip1 {{ bigipVip1Pip }}"
+    when: deployment == "ha"
+    tags: vs 

@@ -14,6 +14,7 @@
     F5_PASSWORD:             "{{ azure_user_pass }}"
     F5_VALIDATE_CERTS:       "no"
     F5_SERVER:               "{{ bigipMgmtIp }}"
+    F5_SERVER_PORT:          443
 
   vars_files:
     - "group_vars/azure-f5.yml"
@@ -32,7 +33,9 @@
     - { role: bigip_ha,     tags: ha,   when: deployment == "ha" and deploy_state == "present" }
     # setup facts from the BIG-IP deployments
     - { role: setup_facts,  tags: vs,   when: deploy_state == "present" }
-    # create an application service on the created BIG-IP device(s)
-    - { role: setup_profiles,    tags: vs,   when: deploy_state == "present" }
+    # create profiles and monitors
+    - { role: setup_profiles, tags: vs,   when: deploy_state == "present" }
+    # create application services using an AS3 declaration
+    #- { role: create_services, tags: vs, when: deploy_state == "present" }
     # decommision the resource group
     - { role: decom_az_env, tags: rg,   when: deploy_state == "absent"  }

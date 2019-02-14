@@ -1,0 +1,5 @@
+when HTTP_REQUEST {
+   if { [HTTP::uri] equals "/" } {
+      HTTP::redirect "/bodgeit/login.jsp"
+   }
+}

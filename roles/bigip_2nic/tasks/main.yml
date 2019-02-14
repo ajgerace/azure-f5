@@ -51,10 +51,10 @@
         allowUsageAnalytics:
           value: "Yes"
 
-#  - name: Modify BIGIP ext security group
-#    azure_rm_securitygroup:
-#      cert_validation_mode: ignore
-#      name: "{{ dnsLabel }}-ext-nsg"
-#      rules: "{{ ext_rules }}"
-#      resource_group: "{{ vnetResGroupName }}"
-#      state: "{{ deploy_state }}"
+  - name: Modify BIGIP ext security group
+    azure_rm_securitygroup:
+      cert_validation_mode: ignore
+      name: "{{ dnsLabel }}-ext-nsg"
+      rules: "{{ ext_rules }}"
+      resource_group: "{{ vnetResGroupName }}"
+      state: "{{ deploy_state }}"
