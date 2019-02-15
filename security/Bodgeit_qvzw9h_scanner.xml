@@ -1,0 +1,244 @@
+<scanner_vulnerabilities version="12.1.2">
+<vulnerability>
+    <attack_type>Parameter Tampering</attack_type>
+    <name>Web Application Potentially Sensitive CGI Parameter Detection</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>info</severity>
+    <threat>none</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>0</score>
+</vulnerability>
+<vulnerability>
+    <attack_type>Autocomplete not disabled on login form</attack_type>
+    <name>Web Server Allows Password Auto-Completion</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>info</severity>
+    <threat>none</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>0</score>
+</vulnerability>
+<vulnerability>
+    <attack_type>HyperText Transfer Protocol (HTTP) Information</attack_type>
+    <name>HyperText Transfer Protocol (HTTP) Information</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>info</severity>
+    <threat>none</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>0</score>
+</vulnerability>
+<vulnerability>
+    <attack_type>Set-Cookie does not use HTTPOnly keyword</attack_type>
+    <name>Web Application Cookies Not Marked HttpOnly</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>info</severity>
+    <threat>none</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>0</score>
+</vulnerability>
+<vulnerability>
+    <attack_type>Cross Site Scripting (XSS)</attack_type>
+    <name>CGI Generic XSS (comprehensive test)</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>medium</severity>
+    <threat>medium</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>4.3</score>
+</vulnerability>
+<vulnerability>
+    <attack_type>Missing or Permissive Content-Security-Policy HTTP Response Header</attack_type>
+    <name>Missing or Permissive Content-Security-Policy HTTP Response Header</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>info</severity>
+    <threat>none</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>0</score>
+</vulnerability>
+<vulnerability>
+    <attack_type>Nessus SYN scanner</attack_type>
+    <name>Nessus SYN scanner</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>info</severity>
+    <threat>none</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>0</score>
+</vulnerability>
+<vulnerability>
+    <attack_type>SQL-Injection</attack_type>
+    <name>CGI Generic SQL Injection (blind)</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>high</severity>
+    <threat>high</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>7.5</score>
+</vulnerability>
+<vulnerability>
+    <attack_type>Cross Site Scripting (XSS)</attack_type>
+    <name>CGI Generic HTML Injections (quick test)</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>medium</severity>
+    <threat>medium</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>4.3</score>
+</vulnerability>
+<vulnerability>
+    <attack_type>Logins sent over unencrypted</attack_type>
+    <name>Web Server Transmits Cleartext Credentials</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>low</severity>
+    <threat>low</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>2.6</score>
+</vulnerability>
+<vulnerability>
+    <attack_type>CGI Generic Tests Load Estimation (all tests)</attack_type>
+    <name>CGI Generic Tests Load Estimation (all tests)</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>info</severity>
+    <threat>none</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>0</score>
+</vulnerability>
+<vulnerability>
+    <attack_type>Cross Site Scripting (XSS)</attack_type>
+    <name>CGI Generic XSS (quick test)</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>medium</severity>
+    <threat>medium</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>4.3</score>
+</vulnerability>
+<vulnerability>
+    <attack_type>Web mirroring</attack_type>
+    <name>Web mirroring</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>info</severity>
+    <threat>none</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>0</score>
+</vulnerability>
+<vulnerability>
+    <attack_type>Clickjacking</attack_type>
+    <name>Web Application Potentially Vulnerable to Clickjacking</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>medium</severity>
+    <threat>medium</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>4.3</score>
+</vulnerability>
+<vulnerability>
+    <attack_type>Missing or Permissive X-Frame-Options HTTP Response Header</attack_type>
+    <name>Missing or Permissive X-Frame-Options HTTP Response Header</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>info</severity>
+    <threat>none</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>0</score>
+</vulnerability>
+<vulnerability>
+    <attack_type>Cross Site Scripting (XSS)</attack_type>
+    <name>CGI Generic Unseen Parameters Discovery</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>medium</severity>
+    <threat>medium</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>6.8</score>
+</vulnerability>
+<vulnerability>
+    <attack_type>Injection Attempt</attack_type>
+    <name>CGI Generic Injectable Parameter</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>info</severity>
+    <threat>none</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>0</score>
+</vulnerability>
+<vulnerability>
+    <attack_type>HTTP Methods Allowed (per directory)</attack_type>
+    <name>HTTP Methods Allowed (per directory)</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>info</severity>
+    <threat>none</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>0</score>
+</vulnerability>
+<vulnerability>
+    <attack_type>Set-Cookie does not use Secure keyword</attack_type>
+    <name>Web Application Cookies Not Marked Secure</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>info</severity>
+    <threat>none</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>0</score>
+</vulnerability>
+<vulnerability>
+    <attack_type>Injection Attempt</attack_type>
+    <name>CGI Generic Cookie Injection Scripting</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>medium</severity>
+    <threat>medium</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>4.3</score>
+</vulnerability>
+<vulnerability>
+    <attack_type>Web Application Sitemap</attack_type>
+    <name>Web Application Sitemap</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>info</severity>
+    <threat>none</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>0</score>
+</vulnerability>
+<vulnerability>
+    <attack_type>CGI Generic Tests Timeout</attack_type>
+    <name>CGI Generic Tests Timeout</name>
+    <url>http://bodgeit.f5demo.org</url>
+    <severity>info</severity>
+    <threat>none</threat>
+    <parameter></parameter>
+    <opened></opened>
+    <status>open</status>
+    <score>0</score>
+</vulnerability>
+</scanner_vulnerabilities>
