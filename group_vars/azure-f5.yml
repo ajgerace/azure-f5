@@ -38,7 +38,8 @@
 
     roles_path: "roles/create_vs3/files"
     as3RpmFile: "f5-appsvcs-3.8.0-3.noarch.rpm"
-
+    wafPolicyUrl: "https://github.com/ajgerace/azure-f5/blob/master/security/bodgeit_security_policy.xml"
+    
 
     f5Modules:
       - { name: asm, level: minimum, state: present }

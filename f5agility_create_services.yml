@@ -1,5 +1,5 @@
 ---
-- name: Create application services using AS3 
+- name: Create application services using AS3
   hosts: localhost
   connection: local
   gather_facts: no
@@ -21,6 +21,11 @@
   vars_files:
     - "group_vars/azure-f5.yml"
 
+  vars:
+    deploy_state: present
+  
+
+
   roles:
-    - { role: setup_facts,  tags: vs,   when: deploy_state == "present" }
-    - { role: create_services, tags: vs, when deploy_state == "present" }
+    - { role: setup_facts,  tags: vs }
+    - { role: create_services, tags: vs }

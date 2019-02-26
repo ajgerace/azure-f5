@@ -4,58 +4,63 @@
     "persist": true,
     "declaration": {
         "class": "ADC",
-        "id": "aws-f5demo-bodgeit",
+        "id": "azure-{{ location }}-f5demo",
         "schemaVersion": "3.5.0",
-        "as3_aws": {
+        "as3_azure{{ location }}": {
             "class": "Tenant",
-            "bodgeit": {
+            "{{ vsName }}": {
                 "class": "Application",
                 "template": "generic",
-                "vs_bodgeit_443": {
+                "vs_{{vsName}}_443": {
                     "class": "Service_HTTPS",
                     "iRules": [
                         {
                             "bigip": "/Common/bodgeit_irule"
                         }
                     ],
-                    "pool": "vs_bodgeit_pool",
+                    "pool": "vs_{{ vsName }}_pool",
+                    "policyWAF": {
+                        "url": "{{ wafPolicyUrl }}"
+                    },                    
                     "profileHTTP": {
-                        "bigip": "/Common/f5demo-http"
+                        "bigip": "/Common/{{ baseProfileName }}-http"
                     },
                     "profileMultiplex": {
-                        "bigip": "/Common/f5demo-oneconnect"
+                        "bigip": "/Common/{{ baseProfileName }}-oneconnect"
                     },
                     "profileTCP": {
                         "egress": {
-                            "bigip": "/Common/f5demo-tcp-wan"
+                            "bigip": "/Common/{{ baseProfileName }}-tcp-wan"
                         },
                         "ingress": {
-                            "bigip": "/Common/f5demo-tcp-lan"
+                            "bigip": "/Common/{{ baseProfileName }}-tcp-lan"
                         }
                     },
                     "redirect80": true,
                     "serverTLS": {
-                        "bigip": "/Common/f5demo-clientssl"
+                        "bigip": "/Common/{{ baseProfileName }}-clientssl"
                     },
                     "snat": "auto",
                     "virtualAddresses": [
-                        "{{ vipPrivIp }}"
+                        "{{ extVipAddr1 }}"
                     ],
                     "virtualPort": 443
                 },
-                "vs_bodgeit_pool": {
+                "vs_{{ vsName }}_pool": {
                     "class": "Pool",
                     "members": [
                         {
 			              "servicePort": 8080,
-			              "addressDiscovery": "aws",
+			              "addressDiscovery": "azure",
 			              "updateInterval": 10,
 			              "tagKey": "appName",
 			              "tagValue": "bodgeit",
 			              "addressRealm": "private",
-			              "region": "{{ region }}",
-			              "accessKeyId": "{{ access_key }}",
-			              "secretAccessKey": "{{ secret_key}}",
+			              "resourceGroup": "{{ vnetResGroupName }}",
+			              "subscriptionId": "{{ azure_subscription_id }}",
+                    "directoryId": "{{ azure_tenant_id }}",
+                    "applicationId": "{{ azure_client_id }}",
+                    "apiAccessKey": "{{ azure_secret }}",
 			              "credentialUpdate": false
             			}
                     ],

@@ -34,6 +34,11 @@
                         }
                     },
                     "redirect80": true,
+                    "securityLogProfiles": [
+                        	{
+                        	"bigip": "/Common/Log all requests"
+                        	}
+                    ],
                     "serverTLS": {
                         "bigip": "/Common/{{ baseProfileName }}-clientssl"
                     },
