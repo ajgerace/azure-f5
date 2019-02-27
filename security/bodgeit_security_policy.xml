@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<policy integrity_check="076e7cdf07b3790b96547530cfe77dec" bigip_version="13.1.1" name="/Common/bodgeit_security_policy">
+<policy integrity_check="a9262d9f4f2d4b1aff834f679031f752" bigip_version="13.1.1" name="/as3_azureeastus/bodgeit/bodgeit_sec_policy">
   <type>Security</type>
   <policy_version>
-    <timestamp>2019-02-13T20:24:19Z</timestamp>
-    <device_name>f5vm01.f5demo.org</device_name>
-    <policy_name>/Common/bodgeit_security_policy</policy_name>
-    <last_change>Policy Signature Set Server Side Code Injection Signatures [add]: Alarm was set to enabled.
-Policy Signature Set Name was set to Server Side Code Injection Signatures.
-Block was set to enabled.
-Learn was set to enabled. { audit: policy = /Common/bodgeit_security_policy, username = admin, client IP = 192.168.90.1 }</last_change>
+    <timestamp>2019-02-27T09:57:32Z</timestamp>
+    <device_name>f5vm01.eastus.cloudapp.azure.com</device_name>
+    <policy_name>/as3_azureeastus/bodgeit/bodgeit_sec_policy</policy_name>
+    <last_change>Policy Attributes Policy Attack Signature Attributes [update]: Signature Staging was set to disabled. { audit: policy = /as3_azureeastus/bodgeit/bodgeit_sec_policy, username = admin, client IP = 96.252.37.197 }</last_change>
   </policy_version>
   <encoding>utf-8</encoding>
   <description>Fundamental Policy</description>
@@ -40,7 +37,7 @@ Learn was set to enabled. { audit: policy = /Common/bodgeit_security_policy, use
     <csrf_url>
       <target_pattern>*</target_pattern>
       <wildcard_order>1</wildcard_order>
-      <last_updated>2019-02-12T18:47:47Z</last_updated>
+      <last_updated>2019-02-27T09:53:57Z</last_updated>
       <csrf_url_method>POST</csrf_url_method>
       <csrf_url_enforcement_action>verify-csrf-token</csrf_url_enforcement_action>
       <required_parameters>ignore</required_parameters>
@@ -662,6 +659,7 @@ Connection: close</response_header>
 	"supportID": "&lt;%TS.request.ID()%>",
 	"response_type": "&lt;%TS.response_type()%>"
 }</response_html_code>
+      <ajax_action_type>redirect</ajax_action_type>
     </response_page>
     <response_page cause="Captcha">
       <response_type>default</response_type>
@@ -670,6 +668,7 @@ Cache-Control: no-cache
 Pragma: no-cache
 Content-type: text/html</response_header>
       <response_html_code>This question is for testing whether you are a human visitor and to prevent automated spam submission.&lt;br>%ASM.captcha.image% %ASM.captcha.change%&lt;br>&lt;b>What code is in the image?&lt;/b>%ASM.captcha.solution%&lt;br>%ASM.captcha.submit%&lt;br>&lt;br>Your support ID is: %ASM.captcha.support_id%.</response_html_code>
+      <ajax_action_type>redirect</ajax_action_type>
     </response_page>
     <response_page cause="Captcha_fail">
       <response_type>default</response_type>
@@ -678,6 +677,7 @@ Cache-Control: no-cache
 Pragma: no-cache
 Content-type: text/html</response_header>
       <response_html_code>You have entered an invalid answer for the question. Please try again.&lt;br>%ASM.captcha.image% %ASM.captcha.change%&lt;br>&lt;b>What code is in the image?&lt;/b>%ASM.captcha.solution%&lt;br>%ASM.captcha.submit%&lt;br>&lt;br>Your support ID is: %ASM.captcha.support_id%.</response_html_code>
+      <ajax_action_type>redirect</ajax_action_type>
     </response_page>
     <response_page cause="Failed_login_honeypot">
       <response_type>default</response_type>
@@ -686,6 +686,7 @@ Cache-Control: no-cache
 Pragma: no-cache
 Connection: close</response_header>
       <response_html_code>&lt;html>&lt;head>&lt;title>Login Failed&lt;/title>&lt;/head>&lt;body>Username or password is incorrect. Please try to log in again.&lt;br>&lt;br>&lt;a href="javascript:history.back();">[Go Back]&lt;/a>&lt;/body>&lt;/html></response_html_code>
+      <ajax_action_type>redirect</ajax_action_type>
     </response_page>
     <response_page cause="Failed_login_honeypot_ajax">
       <response_type>default</response_type>
@@ -1911,7 +1912,7 @@ Connection: close</response_header>
       <post_data_length>1000</post_data_length>
       <check_response>false</check_response>
       <in_staging>true</in_staging>
-      <last_updated>2019-02-12T18:47:47Z</last_updated>
+      <last_updated>2019-02-27T09:53:57Z</last_updated>
       <check_url_length>true</check_url_length>
       <check_request_length>true</check_request_length>
       <check_query_string_length>true</check_query_string_length>
@@ -1931,7 +1932,7 @@ Connection: close</response_header>
       <check_metachars>false</check_metachars>
       <check_methods>false</check_methods>
       <in_staging>true</in_staging>
-      <last_updated>2019-02-12T19:14:53Z</last_updated>
+      <last_updated>2019-02-27T09:54:12Z</last_updated>
       <clickjacking_protection>
         <enabled>false</enabled>
         <allow_rendering_in_frames>Never</allow_rendering_in_frames>
@@ -1989,7 +1990,7 @@ Connection: close</response_header>
       <check_metachars>false</check_metachars>
       <check_methods>false</check_methods>
       <in_staging>true</in_staging>
-      <last_updated>2019-02-12T19:14:53Z</last_updated>
+      <last_updated>2019-02-27T09:54:12Z</last_updated>
       <clickjacking_protection>
         <enabled>false</enabled>
         <allow_rendering_in_frames>Never</allow_rendering_in_frames>
@@ -2302,7 +2303,7 @@ Connection: close</response_header>
       <user_config_level>advanced</user_config_level>
       <check_metachars>false</check_metachars>
       <in_staging>true</in_staging>
-      <last_updated>2019-02-12T18:47:52Z</last_updated>
+      <last_updated>2019-02-27T09:54:04Z</last_updated>
       <cors_enforcement_enable>false</cors_enforcement_enable>
       <allow_cors>false</allow_cors>
       <cors_allowed_origins_handling>unmodified</cors_allowed_origins_handling>
@@ -2329,7 +2330,7 @@ Connection: close</response_header>
       <user_config_level>advanced</user_config_level>
       <check_metachars>false</check_metachars>
       <in_staging>true</in_staging>
-      <last_updated>2019-02-12T18:47:52Z</last_updated>
+      <last_updated>2019-02-27T09:54:04Z</last_updated>
       <cors_enforcement_enable>false</cors_enforcement_enable>
       <allow_cors>false</allow_cors>
       <cors_allowed_origins_handling>unmodified</cors_allowed_origins_handling>
@@ -2363,8 +2364,8 @@ Connection: close</response_header>
       <maximum_length>10</maximum_length>
       <match_regular_expression></match_regular_expression>
       <is_sensitive>false</is_sensitive>
-      <in_staging>true</in_staging>
-      <last_updated>2019-02-12T18:47:47Z</last_updated>
+      <in_staging>false</in_staging>
+      <last_updated>2019-02-27T09:54:30Z</last_updated>
       <parameter_name_metachars>
         <check_metachars>false</check_metachars>
       </parameter_name_metachars>
@@ -3300,7 +3301,7 @@ Connection: close</response_header>
       <block>true</block>
       <learn>true</learn>
     </signature_set>
-    <enable_staging>true</enable_staging>
+    <enable_staging>false</enable_staging>
     <place_signatures_in_staging>true</place_signatures_in_staging>
     <sigfile_timestamp>2017-05-10 11:22:38</sigfile_timestamp>
     <signature signature_id="200000001">
@@ -20409,7 +20410,7 @@ Connection: close</response_header>
     <identify_device>false</identify_device>
     <maximum_prevention_time>3600</maximum_prevention_time>
     <flg_enabled>false</flg_enabled>
-    <last_updated>1549997267</last_updated>
+    <last_updated>1551261237</last_updated>
     <detection_threshold_credentials_stuffing_matches_reached>100</detection_threshold_credentials_stuffing_matches_reached>
     <detection_threshold_action>alarm-and-captcha</detection_threshold_action>
     <login_attempts_from_the_same_user_threshold>3</login_attempts_from_the_same_user_threshold>
