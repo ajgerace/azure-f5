@@ -23,7 +23,7 @@
 
   vars:
     deploy_state: present
-    declareFile: "as3_azure_bodgeit_waf"
+    declareFile: "as3_azure_bodgeit"
 
   roles:
     - { role: setup_facts,  tags: vs }

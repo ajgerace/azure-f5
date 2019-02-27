@@ -6,7 +6,7 @@
         "class": "ADC",
         "id": "azure-{{ location }}-f5demo",
         "schemaVersion": "3.5.0",
-        "as3_azure_{{ location }}": {
+        "as3_azure{{ location }}": {
             "class": "Tenant",
             "{{ vsName }}": {
                 "class": "Application",
@@ -33,12 +33,7 @@
                             "bigip": "/Common/{{ baseProfileName }}-tcp-lan"
                         }
                     },
-                    "redirect80": true,
-                    "securityLogProfiles": [
-                        	{
-                        	"bigip": "/Common/Log all requests"
-                        	}
-                    ],
+                    "redirect80": true,              
                     "serverTLS": {
                         "bigip": "/Common/{{ baseProfileName }}-clientssl"
                     },

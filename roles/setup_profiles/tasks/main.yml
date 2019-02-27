@@ -75,6 +75,13 @@
       - { name: bodgeit_irule, file: bodgeit.irule }
     tags: vs
 
+  - name: create security log profile
+    bigip_command:
+      commands: create  security log profile f5demo-log-all application add { f5demo-log-all { filter add { request-type { values add { all } } search-all {} } logic-operation and }}  bot-defense add { f5demo-log-all { local-publisher /Common/local-db-publisher filter { log-bot-signature-matched-requests enabled log-challenged-requests enabled log-illegal-requests enabled log-legal-requests enabled log-captcha-challenged-requests enabled } } } dos-application add { f5demo-log-all { local-publisher local-db-publisher } }
+    delegate_to: localhost
+    tags: vs
+    
+
   - name: Create DNS Resolver
     uri:
       url: https://{{bigipMgmtIp}}/mgmt/tm/net/dns-resolver
