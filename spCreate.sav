@@ -11,24 +11,23 @@
 
 #Set Username to be created
 export AZURE_STUDENT="$(echo $AZURE_USERNAME | awk -F'@' '{print $1}')"
-APPSUFFIX="$(uuidgen|head -c 5)"
-export SP_NAME="$(echo $AZURE_USERNAME | awk -F'@' '{print $1}')-$APPSUFFIX"
+export SP_NAME="$(echo $AZURE_USERNAME | awk -F'@' '{print $1}')-App"
 SP_PASSWORD=$(uuidgen)
 az_name="azure_user: ${AZURE_STUDENT}"
 az_pass="azure_user_pass: $AZURE_PW"
 
 #Log into Azure and Output the SUbcription ID
-AZURE_SUBSCRIPTION_ID=$(az login -u $AZURE_USERNAME -p $AZURE_PW -o json | jq '.[0] .id' --raw-output)
+AZURE_SUBSCRIPTION_ID=$(az login -u $AZURE_USERNAME -p $AZURE_PW | jq '.[0] .id' --raw-output)
 subscription_id="azure_subscription_id: ${AZURE_SUBSCRIPTION_ID}"
 AZURE_SUBSCRIPTION_ID="export AZURE_SUBSCRIPTION_ID=${AZURE_SUBSCRIPTION_ID}"
 
 #GET Tenant  ID
-AZURE_TENANT=$(az account list -o json | jq '.[0] .tenantId' --raw-output)
+AZURE_TENANT=$(az account list | jq '.[0] .tenantId' --raw-output)
 AZURE_TENANT="export AZURE_TENANT=${AZURE_TENANT}"
-tenant="azure_tenant_id: $(az account list -o json | jq '.[0] .tenantId' --raw-output)"
+tenant="azure_tenant_id: $(az account list | jq '.[0] .tenantId' --raw-output)"
 
 #Create new SP
-AZURE_CLIENT_ID=$(az ad sp create-for-rbac --name $SP_NAME --password $SP_PASSWORD -o json | jq '.appId' --raw-output)
+AZURE_CLIENT_ID=$(az ad sp create-for-rbac --name $SP_NAME --password $SP_PASSWORD | jq '.appId' --raw-output)
 [ -z "$AZURE_CLIENT_ID" ] && error=1
 client_id="azure_client_id: ${AZURE_CLIENT_ID}"
 AZURE_CLIENT_ID="export AZURE_CLIENT_ID=${AZURE_CLIENT_ID}"

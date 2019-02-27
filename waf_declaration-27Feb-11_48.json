@@ -1,0 +1,63 @@
+{
+        "action": "deploy",
+        "class": "AS3",
+        "declaration": {
+            "as3_azure_eastus": {
+                "bodgeit": {
+                    "bodgeit_sec_policy": {
+                        "class": "WAF_Policy",
+                        "ignoreChanges": true,
+                        "url": "https://raw.githubusercontent.com/ajgerace/azure-f5/master/security/bodgeit_security_policy.xml"
+                    },
+                    "class": "Application",
+                    "template": "https",
+                    "serviceMain": {
+                        "class": "Service_HTTPS",
+                        "iRules": [
+                            {
+                                "bigip": "/Common/bodgeit_irule"
+                            }
+                        ],
+                        "policyWAF": {
+                        	"use": "bodgeit_sec_policy"
+                        },
+
+                        "profileHTTP": {
+                            "bigip": "/Common/f5demo-http"
+                        },
+                        "profileMultiplex": {
+                            "bigip": "/Common/f5demo-oneconnect"
+                        },
+                        "profileTCP": {
+                            "egress": {
+                                "bigip": "/Common/f5demo-tcp-wan"
+                            },
+                            "ingress": {
+                                "bigip": "/Common/f5demo-tcp-lan"
+                            }
+                        },
+                        "redirect80": true,
+                        "securityLogProfiles": [
+                            {
+                                "bigip": "/Common/Log all requests"
+                            }
+                        ],
+                        "serverTLS": {
+                            "bigip": "/Common/f5demo-clientssl"
+                        },
+                        "snat": "auto",
+                        "virtualAddresses": [
+                            "10.0.10.246"
+                        ],
+                        "virtualPort": 443
+                    }
+
+                },
+                "class": "Tenant"
+            },
+            "class": "ADC",
+            "id": "azure-eastus-f5demo",
+            "schemaVersion": "3.8.0"
+        },
+        "persist": true
+    }
