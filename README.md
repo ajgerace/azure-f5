@@ -1,6 +1,11 @@
 # F5 Architectures in Microsoft Azure Cloud
 
+## Pre-Prerequisites
+
+Visit https://github.com/ajgerace/azure-f5 for the lab instructions
+
 ## Prerequisites
+
 1. Build Docker container
 
    `docker build -t agility2018 . `
