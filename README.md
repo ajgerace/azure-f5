@@ -7,7 +7,7 @@ Visit https://github.com/ajgerace/azure-f5 for the lab instructions
 1. During the Hands-On part of the Azure Lab Event you will be assigned a username from the list below:
 
 |Student Name |E-Mail/Service Principal |Application ID |Link to Jump host| 
-|-|-|
+|--------|:--------:|:-------:|:-------|
 |f5student1 |f5student1@f5custlabs.onmicrosoft.com |F5 Azure Lab Day##F5 Azure Lab BP#2##ea97be85-800e-4e69-95b5-99574080fe30##1550856898462|https://access.ravellosystems.com/simple/#/PBi9Qkht0EcLxiTwzX0vDljgNAKuJEb2CYmkQbb4Eaxabevefv5IZWPFHGdm4fy4/apps/3125675729087|
 |f5student10|f5student10@f5custlabs.onmicrosoft.com|F5 Azure Lab Day##F5 Azure Lab BP#2##85f4ef52-1232-4c83-ba89-30a2f564ac6e##1550856898493|https://access.ravellosystems.com/simple/#/FnUhqNNB6vQBgx8xbYeVfFi28xQsrHFMHRThbXnlxkPM0HiQSGbpcULj2p11KYLL/apps/3125675663531|
 |f5student11|f5student11@f5custlabs.onmicrosoft.com|F5 Azure Lab Day##F5 Azure Lab BP#2##b9363913-7bbf-41ff-b333-3f4bce6ff91f##1550856898486|https://access.ravellosystems.com/simple/#/99xMKZMhw8H2h32imiOtpj0teGso7rrmP18Hf7mX5E8o2tZETyxjkUyXwZVLSYE2/apps/3125675729090|
