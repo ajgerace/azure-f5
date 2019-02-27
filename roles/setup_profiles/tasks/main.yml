@@ -62,7 +62,7 @@
     bigip_profile_oneconnect:
       name: "{{ baseProfileName }}-oneconnect"
     delegate_to: localhost
-    
+
   - name: Install iRules
     bigip_irule:
       validate_certs: no
@@ -73,4 +73,33 @@
     loop:
       - { name: maint_pg_irule, file: maint_page.irule }
       - { name: bodgeit_irule, file: bodgeit.irule }
+    tags: vs
+
+  - name: Create DNS Resolver
+    uri:
+      url: https://{{bigipMgmtIp}}/mgmt/tm/net/dns-resolver
+      method: POST
+      headers:
+        Content-Type: "application/json"
+      user: "{{ azure_user }}"
+      password: "{{ azure_user_pass }}"
+      body:
+        name: "{{ baseProfileName }}-dns-resolver"
+        randomizeQueryNameCase: "yes"
+        routeDomain: 0
+        useIpv4: "yes"
+        useTCP: "yes"
+        useUDP: "yes"
+      status_code: 200, 409
+      body_format: json
+      validate_certs: no
+    delegate_to: localhost
+    tags: vs
+
+  - name: Install declarative interfaces
+    bigip_iapplx_package:
+      package: "{{ item }}"
+    delegate_to: localhost
+    loop:
+      - "{{ as3RpmFile }}"
     tags: vs

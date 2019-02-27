@@ -6,7 +6,7 @@
         "class": "ADC",
         "id": "azure-{{ location }}-f5demo",
         "schemaVersion": "3.5.0",
-        "as3_azure{{ location }}": {
+        "as3_azure_{{ location }}": {
             "class": "Tenant",
             "{{ vsName }}": {
                 "class": "Application",
@@ -20,8 +20,8 @@
                     ],
                     "pool": "vs_{{ vsName }}_pool",
                     "policyWAF": {
-                        "url": "{{ wafPolicyUrl }}"
-                    },                    
+                        "use": "bodgeit_sec_policy"
+                    },
                     "profileHTTP": {
                         "bigip": "/Common/{{ baseProfileName }}-http"
                     },
@@ -37,6 +37,11 @@
                         }
                     },
                     "redirect80": true,
+                    "securityLogProfiles": [
+                        	{
+                        	"bigip": "/Common/Log all requests"
+                        	}
+                    ],
                     "serverTLS": {
                         "bigip": "/Common/{{ baseProfileName }}-clientssl"
                     },
@@ -50,25 +55,31 @@
                     "class": "Pool",
                     "members": [
                         {
-			              "servicePort": 8080,
-			              "addressDiscovery": "azure",
-			              "updateInterval": 10,
-			              "tagKey": "appName",
-			              "tagValue": "bodgeit",
-			              "addressRealm": "private",
-			              "resourceGroup": "{{ vnetResGroupName }}",
-			              "subscriptionId": "{{ azure_subscription_id }}",
-                    "directoryId": "{{ azure_tenant_id }}",
-                    "applicationId": "{{ azure_client_id }}",
-                    "apiAccessKey": "{{ azure_secret }}",
-			              "credentialUpdate": false
-            			}
+      			              "servicePort": 8080,
+      			              "addressDiscovery": "azure",
+      			              "updateInterval": 10,
+      			              "tagKey": "appName",
+      			              "tagValue": "bodgeit",
+      			              "addressRealm": "private",
+      			              "resourceGroup": "{{ vnetResGroupName }}",
+      			              "subscriptionId": "{{ azure_subscription_id }}",
+                          "directoryId": "{{ azure_tenant_id }}",
+                          "applicationId": "{{ azure_client_id }}",
+                          "apiAccessKey": "{{ azure_secret }}",
+      			              "credentialUpdate": false
+            			      }
                     ],
                     "monitors": [
                         {
                             "bigip": "/Common/f5demo_http_head"
                         }
                     ]
+                },
+                "bodgeit_sec_policy": {
+                    	"class": "WAF_Policy",
+                    	"url": "{{ wafPolicyUrl }}",
+                    	"ignoreChanges": true
+
                 }
 
             }

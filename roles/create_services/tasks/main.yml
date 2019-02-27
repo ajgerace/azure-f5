@@ -2,10 +2,10 @@
 # Create application services using AS3
 
 - set_fact:
-    declaration: "{{ lookup('template', 'files/as3_azure_bodgeit.j2' )  }}"
+    declaration: '{{ lookup("template", "files/{{ declareFile }}.j2" )  }}'
 
 - name: Write out declaration data
-  local_action: copy content="{{ declaration |to_nice_json }}" dest="/home/ansible/tmp/as3_azure_{{location}}_{{ vsName }}_output.json"
+  local_action: copy content="{{ declaration |to_nice_json }}" dest="/home/ansible/tmp/{{declareFile}}_{{location}}_output.json"
 
 - debug:
     var: declaration

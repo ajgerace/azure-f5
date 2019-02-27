@@ -23,9 +23,14 @@
 
   vars:
     deploy_state: present
-  
-
+    declareFile: "as3_azure_bodgeit"
 
   roles:
     - { role: setup_facts,  tags: vs }
     - { role: create_services, tags: vs }
+
+  tasks:
+    - debug:
+        msg: "BIG-IP can be accessed via https://{{ bigipMgmtIp }} and the application via https://{{ bigipVip1Pip }}"
+      when: deployment == "2nic"
+      tags: vs
