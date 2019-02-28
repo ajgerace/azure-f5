@@ -16,7 +16,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 | Server 2 | External | 10.0.10.5|
 
 
-#### Agenda
+#### Lab
 
   * Getting Started
     * Setup Ansible Vault variable file (utilizes vi command)
@@ -33,7 +33,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
     * Create environment variables for your Azure student id
 
-      `export AZURE_USERNAME=f5studentX@@f5custlabs.onmicrosoft.com`
+      `export AZURE_USERNAME=studentID@domain.onmicrosoft.com`
       `export AZURE=PW=XXXX`
       *Note*: Password to be provided during session
 
@@ -55,9 +55,10 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 | azure_user           | studentID      |
 | azure_user_pass      | VerySecurePassword |
 
-    * Copy these values to the clipboard
+  * Copy these values to the clipboard
 
     * Create ansible vault file and paste the previously copied fields
+
       `ansible-vault create group_vars/all/vault.yml`
 
     *Note* ansible-vault create starts the editor assigned $EDITOR (defaults to VI)
@@ -68,7 +69,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
       `cat group_vars/all/vault.yml`
 
 
-  ** Module 1 - Build out initial environment
+  ## Module 1 - Build out initial environment
 
   * Run ansible playbook (Initial build-out)
     `ansible-playbook f5agility.yml -e deploy_state=present`
@@ -95,6 +96,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
           * NTP
 
   * Deploy L7 Application Services
+
       `ansible-playbook f5agility_create_services.yml`
 
       This playbook will deploy a HTTPS virtual server and utilize Azure Service discovery to find nodes and add them to the application pool for the BodgeIt vulnerable application
@@ -104,14 +106,15 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
       The url to the virtual server was displayed in the output from the above command. Copy and paste the url into your browser. You should initially receive a certificate challenge and then the Bodgeit applicaiton should be displayed.
 
-  ![Bodgit](images/bodgeit-1.png)
+  ![Bodgeit](images/bodgeit-1.png)
 
-      * Perform a SQL Injection attack
-          * On the login page enter the following in the Username field and click Login
+  * Perform a SQL Injection attack
+      * On the login page enter the following in the Username field and click Login
           `admin@thebodgeitstore.com' or '1'='1`
+
   ![Bodgeit SQL-I](images/bodgeit-sqli.png)
 
-          * Notice that you logged into the application and a new menu *Admin* is displayed.
+     **Notice** that you logged into the application and a new menu *Admin* is displayed.
       * Perform a Cross Site Scripting attack
           * Click on the Search menu option
           * In the search box enter the following and click Search
@@ -120,9 +123,9 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
   ![Bodgeit XSS](images/bodgeit-xss.png)
 
 
-  ** Module 2 - Enable Application security
-    * Edit the f5agility_create_services.yml file using your favorite text editor
-        * Change the declareFile variable value to "as3_azure_bodgeit_waf"
+## Module 2 - Enable Application security
+  * Edit the f5agility_create_services.yml file using your favorite text editor
+      * Change the declareFile variable value to **as3_azure_bodgeit_waf**
 
     * Re-run the  f5agility_create_services ansible playbook
       `ansible-playbook f5agility_create_services.yml`
@@ -136,48 +139,79 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
           * What happened? Did you receive the same page as before?  
 
           * You should be a blocking page similar to this
+
   ![Blocking Page](images/bodgeit-block.png)
 
-        * Perform a Cross Site Scripting attack
-          * Click on the Search menu option
-          * In the search box enter the following and click Search
-          `<script>alert('Hacked/XSS')</script>`
-          * What happened? Did you receive the same pop-up as before?     
+  * Perform a Cross Site Scripting attack
+      * Click on the Search menu option
+      * In the search box enter the following and click Search
+
+        `<script>alert('Hacked/XSS')</script>`
+      * What happened? Did you receive the same pop-up as before?     
 
         * Look at the Application Security log
-          * Click on Security
-          * Click Event Log
-          * Click Application
-          * Click Requests
+          * Click on **Security**
+          * Click **Event Log**
+          * Click **Application**
+          * Click **Requests**
+
 
   ![Bodgeit Event Log](images/bodgeit-event_log.png)
-          * Click on one of the entries to get more information regarding the violation
+
+  * Click on one of the entries to get more information regarding the violation
+
+
   ![Bodgeit Event Log SQLI](images/bodgeit-event_log_sqli.png)
-  ** Module 3 - Denial of Service - Bot Protection
-    * Create DoS profile
-      * Click Security
-      * Click DoS Protection
-      * Click DoS Profiles
-      * Click Create
-      * Enter bodgeit_dos_profile in the name field and click Finished
+
+  ## Module 3 - Denial of Service - Bot Protection
+  * Create DoS profile
+    * Click Security
+    * Click DoS Protection
+    * Click DoS Profiles
+    * Click Create
+    * Enter bodgeit_dos_profile in the name field
+    * Click **Finished**
+
+
   ![DoS Profile](images/dos_profile-1.png)
-      * Click on the new profile you created
-      * Click Application Security menu
-      * General Settings - Enable Application Security
+
+  * Click on the new profile you created
+    * Click Application Security menu
+      * General Settings - **Enable** Application Security
       * Proactive Bot Defense - Toggle Operational Mode to **Always**
       * Adjust Grace Period from 300 seconds to **30** seconds
       * Toggle TPS based detection's Operational Mode from blocking to **Off**
-      * Click Update
+      * Click **Update**
+
+
   ![Dos Profile](images/dos_profile_end.png)
 
-      * Click Local Traffic
-      * Click Virtual Server
-      * Click vs_bodgeit_443
-      * Click Security -> Policies
-      * Enable the DoS profile you just created
+  * Click **Local Traffic**
+  * Click **Virtual Server**
+  * Click **vs_bodgeit_443**
+  * Click **Security**
+  * Click **Policies**
+  * Enable the DoS profile you just created
+
   ![Bodgeit Policies](images/bodgeit_vs_policies.png)
 
-      * Click around the Bodgeit application
-      * You should not notice a difference, pages should load without problem.
+  * Click around the Bodgeit application
+  * You should not notice a difference, pages should load without problem.
 
-      * From the terminal window
+  * From the terminal window execute attack on the bodgeit site
+
+      `ab -c 1 -n 100 -r https://VIP/bodgeit/login.jsp`
+
+* Review logs at Security -> event logs -> BoT Defense : requests
+
+  ![Bot Request Log](images/dos_bot_request_log.png)
+
+
+  ## Module 4 - Remove Lab configuration
+
+  * Run f5agility ansible playbook with a deploy_state=absent to teardown your environment.
+    `ansible-playbook f5agility.yml -e deploy_state=absent`
+  This will rerun the playbook and execute only the roles (decom_az_env). This will remove the resource group and all the configurations with-in it.
+
+  You have now reached the end of the lab.
+   
