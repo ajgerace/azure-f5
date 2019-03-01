@@ -32,7 +32,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
     * Create environment variables for your Azure student id
 
-      `export AZURE_USERNAME=_<studentID>_@_<domain>_.onmicrosoft.com`
+      `export AZURE_USERNAME=<studentID>@<domain>.onmicrosoft.com`
 
       `export AZURE=PW=XXXX`
 
