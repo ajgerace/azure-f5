@@ -1,3 +1,4 @@
+![F5](images/f5logo.svg)
 ## F5 Azure Lab Day
 
 For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerable web application and a 2 NIC BIG-IP Advanced WAF appliance via an Ansible playbook.  We will then utilize an Ansible playbook to deploy L7 application services using an AS3 declaration.
@@ -19,8 +20,6 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 #### Lab
 
   * Getting Started
-    * Setup Ansible Vault variable file (utilizes vi command)
-       ` ansible-vault edit group_vars/all/vault.sample.yaml `
 
     * Run the docker container:
 
@@ -33,8 +32,10 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
     * Create environment variables for your Azure student id
 
-      `export AZURE_USERNAME=studentID@domain.onmicrosoft.com`
+      `export AZURE_USERNAME=_<studentID>_@_<domain>_.onmicrosoft.com`
+
       `export AZURE=PW=XXXX`
+
       *Note*: Password to be provided during session
 
     * Create password file for Ansible Vault
@@ -214,4 +215,3 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
   This will rerun the playbook and execute only the roles (decom_az_env). This will remove the resource group and all the configurations with-in it.
 
   You have now reached the end of the lab.
-   
