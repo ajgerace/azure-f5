@@ -1,10 +1,19 @@
 #!/bin/bash
-# script to remove Service Principal that was created via the spCreate Script
 
-# Create SP_Name variable
-export SP_NAME="$(echo $AZURE_USERNAME | awk -F'@' '{print $1}')-App"
+#This Script deletes all Apps that start with student from the subscription.#
 
-export SP_Id=$(az ad sp list --display-name $SP_NAME |jq '.[0] .appId' --raw-output )
+###AZURE_USERNAME=
+###AZURE_PW=
 
-# remove SPN 
-cmd=$(az ad sp delete --id $SP_Id)
+# Discover appId
+AppId=$(env | grep $AZURE_USERNAME | cut -d"@" -f1| cut -d"=" -f2)
+AppId=$(az ad app list --output json | jq ".[].homepage" -r | grep $AppId)
+echo "Discovered Application to delete: " $AppId
+for App_Name in $AppId;
+  do
+  echo "Deleting: $App_Name"
+  error=$(az ad app delete --id $App_Name)
+  if [[ ! -z $error ]]; then
+    echo "An error occured: $error"
+  fi
+done
