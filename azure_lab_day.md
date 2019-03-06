@@ -34,7 +34,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
       `export AZURE_USERNAME=<studentID>@<domain>.onmicrosoft.com`
 
-      `export AZURE-PW=XXXX`
+      `export AZURE_PW=XXXX`
 
       *Note*: Password to be provided during session
 
