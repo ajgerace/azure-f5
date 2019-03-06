@@ -1,0 +1,77 @@
+{
+  "action": "deploy",
+    "class": "AS3",
+    "persist": true,
+    "declaration": {
+        "class": "ADC",
+        "id": "aws-f5demo-bodgeit",
+        "schemaVersion": "3.5.0",
+        "as3_aws": {
+            "class": "Tenant",
+            "bodgeit": {
+                "class": "Application",
+                "template": "generic",
+                "vs_bodgeit_443": {
+                    "class": "Service_HTTPS",
+                    "iRules": [
+                        {
+                            "bigip": "/Common/bodgeit_irule"
+                        }
+                    ],
+                    "pool": "vs_bodgeit_pool",
+                    "profileHTTP": {
+                        "bigip": "/Common/f5demo-http"
+                    },
+                    "profileMultiplex": {
+                        "bigip": "/Common/f5demo-oneconnect"
+                    },
+                    "profileTCP": {
+                        "egress": {
+                            "bigip": "/Common/f5demo-tcp-wan"
+                        },
+                        "ingress": {
+                            "bigip": "/Common/f5demo-tcp-lan"
+                        }
+                    },
+                    "redirect80": true,
+                    "securityLogProfiles": [
+                        	{
+                        	"bigip": "/Common/Log all requests"
+                        	}
+                    ],
+                    "serverTLS": {
+                        "bigip": "/Common/f5demo-clientssl"
+                    },
+                    "snat": "auto",
+                    "virtualAddresses": [
+                        "{{ vipPrivIp }}"
+                    ],
+                    "virtualPort": 443
+                },
+                "vs_bodgeit_pool": {
+                    "class": "Pool",
+                    "members": [
+                        {
+			              "servicePort": 8080,
+			              "addressDiscovery": "aws",
+			              "updateInterval": 10,
+			              "tagKey": "appName",
+			              "tagValue": "bodgeit",
+			              "addressRealm": "private",
+			              "region": "{{ region }}",
+			              "accessKeyId": "{{ access_key }}",
+			              "secretAccessKey": "{{ secret_key}}",
+			              "credentialUpdate": false
+            			}
+                    ],
+                    "monitors": [
+                        {
+                            "bigip": "/Common/f5demo_http_head"
+                        }
+                    ]
+                }
+
+            }
+        }
+    }
+}

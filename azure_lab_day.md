@@ -6,7 +6,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 ### Lab Topology
 
 
-![2 NIC Deployment Example](images/azure-example-diagram.png)
+![2 NIC Deployment Example](images/azure-deployment-diagram.png)
 
 | Device | Network | IP Address  |
 | ------ | ------- | ----------  |
@@ -23,7 +23,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
     * Run the docker container:
 
-      ` docker run -it --rm ajgerace/f5-automation`
+      ` sudo docker run -it --rm ajgerace/f5automation`
 
     * Clone this repo into the container
       `git clone https://github.com/ajgerace/azure-f5`
@@ -34,7 +34,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
       `export AZURE_USERNAME=<studentID>@<domain>.onmicrosoft.com`
 
-      `export AZURE=PW=XXXX`
+      `export AZURE-PW=XXXX`
 
       *Note*: Password to be provided during session
 
