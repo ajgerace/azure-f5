@@ -76,9 +76,10 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
     `ansible-playbook f5agility.yml -e deploy_state=present`
 
     Once complete you can connect to the BIG-IP management Public IP displayed in on the terminal window.
+
     ** Notice** You may need to scroll up in the Terminal.
 
-    * Open a browser (Firefox) and connect to the management public IP. 
+    * Open a browser (Firefox) and connect to the management public IP.
 
       * Review the following:
         * Local Traffic
