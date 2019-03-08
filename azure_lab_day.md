@@ -34,7 +34,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
       `export AZURE_USERNAME=<studentID>@<domain>.onmicrosoft.com`
 
-      `export AZURE-PW=XXXX`
+      `export AZURE_PW=XXXX`
 
       *Note*: Password to be provided during session
 
@@ -104,6 +104,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
       When complete, review the configuration built.  These will be located in the as3_azure_eastus partition.
 
+ **_Note_**: If you receive an error re-run the playbook.
 
       The url to the virtual server was displayed in the output from the above command. Copy and paste the url into your browser. You should initially receive a certificate challenge and then the Bodgeit applicaiton should be displayed.
 
@@ -111,22 +112,29 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
   * Perform a SQL Injection attack
       * On the login page enter the following in the Username field and click Login
-          `admin@thebodgeitstore.com' or '1'='1`
+      `admin@thebodgeitstore.com' or '1'='1`
+
 
   ![Bodgeit SQL-I](images/bodgeit-sqli.png)
 
-     **Notice** that you logged into the application and a new menu *Admin* is displayed.
-      * Perform a Cross Site Scripting attack
-          * Click on the Search menu option
-          * In the search box enter the following and click Search
-          `<script>alert('Hacked/XSS')</script>`
-          * Notice the pop-up box containing Hacked/XSS
-  ![Bodgeit XSS](images/bodgeit-xss.png)
+
+  **Notice** that you logged into the application and a new menu *Admin* is displayed.
+
+  * Perform a Cross Site Scripting attack
+    * Click on the Search menu option
+    * In the search box enter the following and click Search
+
+      `<script>alert('Hacked/XSS')</script>`
+
+    **Notice** the pop-up box containing Hacked/XSS
+
+![Bodgeit XSS](images/bodgeit-xss.png)
 
 
 ## Module 2 - Enable Application security
   * Edit the f5agility_create_services.yml file using your favorite text editor
-      * Change the declareFile variable value to **as3_azure_bodgeit_waf**
+      * Change the declareFile variable
+         value to **as3_azure_bodgeit_waf**
 
     * Re-run the  f5agility_create_services ansible playbook
       `ansible-playbook f5agility_create_services.yml`
