@@ -106,9 +106,9 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
       When complete, review the configuration built.  These will be located in the as3_azure_eastus partition.
 
- **_Note_**: If you receive an error re-run the playbook.
+ **_Note_**: If you receive an error when running the create_services playbook, please re-run the playbook.
 
-      The url to the virtual server was displayed in the output from the above command. Copy and paste the url into your browser. You should initially receive a certificate challenge and then the Bodgeit applicaiton should be displayed.
+    The url to the virtual server was displayed in the output from the above command. Copy and paste the url into your browser. You should initially receive a certificate challenge and then the Bodgeit applicaiton should be displayed.
 
   ![Bodgeit](images/bodgeit-1.png)
 
