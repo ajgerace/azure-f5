@@ -73,7 +73,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
   ## Module 1 - Build out initial environment
 
   * Run ansible playbook (Initial build-out)
-    `ansible-playbook f5agility.yml -e deploy_state=present`
+    `ansible-playbook -i notahost, f5agility.yml -e deploy_state=present`
 
     Once complete you can connect to the BIG-IP management Public IP displayed in on the terminal window.
 
@@ -100,35 +100,45 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
   * Deploy L7 Application Services
 
-      `ansible-playbook f5agility_create_services.yml`
+      `ansible-playbook -i notahost, f5agility_create_services.yml`
 
       This playbook will deploy a HTTPS virtual server and utilize Azure Service discovery to find nodes and add them to the application pool for the BodgeIt vulnerable application
 
       When complete, review the configuration built.  These will be located in the as3_azure_eastus partition.
 
+ **_Note_**: If you receive an error when running the create_services playbook, please re-run the playbook.
 
-      The url to the virtual server was displayed in the output from the above command. Copy and paste the url into your browser. You should initially receive a certificate challenge and then the Bodgeit applicaiton should be displayed.
+The url to the virtual server was displayed in the output from the above command.
+Copy and paste the url into your browser.
+You should initially receive a certificate challenge and then the Bodgeit applicaiton should be displayed.
 
   ![Bodgeit](images/bodgeit-1.png)
 
   * Perform a SQL Injection attack
       * On the login page enter the following in the Username field and click Login
-          `admin@thebodgeitstore.com' or '1'='1`
+      `admin@thebodgeitstore.com' or '1'='1`
+
 
   ![Bodgeit SQL-I](images/bodgeit-sqli.png)
 
-     **Notice** that you logged into the application and a new menu *Admin* is displayed.
-      * Perform a Cross Site Scripting attack
-          * Click on the Search menu option
-          * In the search box enter the following and click Search
-          `<script>alert('Hacked/XSS')</script>`
-          * Notice the pop-up box containing Hacked/XSS
-  ![Bodgeit XSS](images/bodgeit-xss.png)
+
+  **Notice** that you logged into the application and a new menu *Admin* is displayed.
+
+  * Perform a Cross Site Scripting attack
+    * Click on the Search menu option
+    * In the search box enter the following and click Search
+
+      `<script>alert('Hacked/XSS')</script>`
+
+    **Notice** the pop-up box containing Hacked/XSS
+
+![Bodgeit XSS](images/bodgeit-xss.png)
 
 
 ## Module 2 - Enable Application security
   * Edit the f5agility_create_services.yml file using your favorite text editor
-      * Change the declareFile variable value to **as3_azure_bodgeit_waf**
+      * Change the declareFile variable
+         value to **as3_azure_bodgeit_waf**
 
     * Re-run the  f5agility_create_services ansible playbook
       `ansible-playbook f5agility_create_services.yml`

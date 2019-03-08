@@ -39,3 +39,9 @@
     #- { role: create_services, tags: vs, when: deploy_state == "present" }
     # decommision the resource group
     - { role: decom_az_env, tags: rg,   when: deploy_state == "absent"  }
+
+  tasks:
+    - debug:
+        msg: "BIG-IP can be accessed via https://{{ bigipMgmtIp }}"
+      when: deployment == "2nic"
+      tags: vs
