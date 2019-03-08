@@ -6,7 +6,7 @@ Visit https://github.com/ajgerace/azure-f5 for the lab instructions
 
 1. During the Hands-On part of the Azure Lab Event you will be assigned a username from the list below:
 
-|Student Name |E-Mail/Service Principal |Application ID |Link to Jump host| 
+|Student Name |E-Mail/Service Principal |Application ID |Link to Jump host|
 |--------|:--------:|:-------:|:-------|
 |f5student1 |f5student1@f5custlabs.onmicrosoft.com |F5 Azure Lab Day##F5 Azure Lab BP#2##ea97be85-800e-4e69-95b5-99574080fe30##1550856898462|https://access.ravellosystems.com/simple/#/PBi9Qkht0EcLxiTwzX0vDljgNAKuJEb2CYmkQbb4Eaxabevefv5IZWPFHGdm4fy4/apps/3125675729087|
 |f5student10|f5student10@f5custlabs.onmicrosoft.com|F5 Azure Lab Day##F5 Azure Lab BP#2##85f4ef52-1232-4c83-ba89-30a2f564ac6e##1550856898493|https://access.ravellosystems.com/simple/#/FnUhqNNB6vQBgx8xbYeVfFi28xQsrHFMHRThbXnlxkPM0HiQSGbpcULj2p11KYLL/apps/3125675663531|
@@ -52,97 +52,5 @@ Visit https://github.com/ajgerace/azure-f5 for the lab instructions
 2. Once assigned, click on the link or copy it to your favorite browser
 3. In the App Screen - Click on "Play" icon to start Jump Host
 4. Connect to your Jump Host via RDP, use provided username and password
-5. Start "Terminal" and proceed to the next section
-
-## Prerequisites
-
-1. Run Docker container
-
-  `docker run -it --rm ajgerace/f5automation`
-
-3. Clone this github repository into container
-
-  `git clone https://github.com/ajgerace/azure-f5`
-  `cd azure-f5`
-
-4. Create environment variables utilizing the student ID and password provided by the instructor
-
-  ` export AZURE_USERNAME=f5studentX@domain.onmicrosoft.com `
-
-  ` export AZURE_PW=XXXXX `
-
-5. Run bash script to create the Azure Service Principal and Secret
-
-  ` ./spCreate.sh `
-
-6. Create the group_vars/all/vault.yml file
-
-   6.1. Copy the azure variables created in step 5
-
-
-| Variable             | Value |
-| --------------------:|------:|  
-| azure_client_id      | abcd_xxxxx |
-| azure_secret         | abcd_xxxxx      |
-| azure_subscription_id| abcd_xxxxx      |
-| azure_tenant_id      | abcd_xxxxx      |
-| azure_user           | studentID      |
-| azure_user_pass      | VerySecurePassword
-
-   6.2. Create the vault password file. This file will hold the vault password so that you will not have to input the password on the commandline or be prompted for the password when running the playbook.  
-
-  ` echo "@g!l!+y2018" > .vault-pass.txt`
-
-   6.3. Create the encrypt the vault.yml file
-
-  ` ansible-vault create group_vars/all/vault.yml `
-
-   6.4. Paste the copied variables and save your changes.
-
-   6.5. View the encrypted vault.yml file
-  ` less group_vars/all/vault.yml `
-
-  ` ansible-vault view group_vars/all/vault.yml `
-
-
-## Lab Outline
-* Demonstrate F5 typical deployments in Azure Cloud. Each  deployment will utilizing a single resource group and two Ubuntu application servers (Bodgeit or something similar).
-
-    1. Single NIC configuration - Azure Portal
-
-    2. 2 NIC deployment - Ansible playbook
-
-       2.1. Run Ansible playbook with deploy_state=present to create deployment. A message is printed to the console with the  public IP addresses for BIG-IP management and the virtual server.
-
-         `ansible-playbook -i notahost, f5agility.yml -e deploy_state=present `
-
-       2.2. Access virtual server, did you get the home page?
-
-       2.3. Run the ansible playbook with `deploy_state=absent` to destroy deployment
-
-         `ansible-playbook f5agility.yml -e deploy_state=absent`
-
-
-    3. Active/Passive 3 NIC deployment - Ansible playbook
-       3.1. Edit group_vars/azure-f5.yml file to enable deployment of A/P BIG-IP cluster.
-
-       3.1.1. Change the following variables
-
-
-          | Variable             | Existing Value | New Value |
-          | --------------------:|------:|-----:|
-          | deployment | 2nic | ha |
-          | extVipAddr1 | 10.0.10.246 | 10.0.10.10 |
-
-
-       3.2. Re-run the Ansible playbook to create the new deployment. A message is displayed to console with the public IP addresses for the BIG-IP management interfaces as well as the virtual server.
-
-           `ansible-playbook -i notahost, f5agility.yml -e deploy_state=present`  
-
-
-       3.3. Run the ansible playbook with `deploy_state=absent` to destroy deployment
-
-             `ansible-playbook f5agility.yml -e deploy_state=absent`
-
-
-    4. Autoscale deployment - Ansible playbook
+5. Start "Terminal" by clicking on the Terminal icon in the dock and proceed to the next section
+6. For the LAB instructions https://github.com/ajgerace/azure-f5/blob/master/azure_lab_day.md

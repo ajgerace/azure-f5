@@ -77,7 +77,9 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
     Once complete you can connect to the BIG-IP management Public IP displayed in on the terminal window.
 
-    * Open a browser and connect to the management public IP.
+    ** Notice** You may need to scroll up in the Terminal.
+
+    * Open a browser (Firefox) and connect to the management public IP.
 
       * Review the following:
         * Local Traffic
