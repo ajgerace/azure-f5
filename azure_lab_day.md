@@ -73,7 +73,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
   ## Module 1 - Build out initial environment
 
   * Run ansible playbook (Initial build-out)
-    `ansible-playbook f5agility.yml -e deploy_state=present`
+    `ansible-playbook -i notahost, f5agility.yml -e deploy_state=present`
 
     Once complete you can connect to the BIG-IP management Public IP displayed in on the terminal window.
 
@@ -100,7 +100,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
   * Deploy L7 Application Services
 
-      `ansible-playbook f5agility_create_services.yml`
+      `ansible-playbook -i notahost, f5agility_create_services.yml`
 
       This playbook will deploy a HTTPS virtual server and utilize Azure Service discovery to find nodes and add them to the application pool for the BodgeIt vulnerable application
 
