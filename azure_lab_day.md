@@ -30,20 +30,16 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
     * Change directory to the newly created azure-f5
       `cd azure-f5`
 
-    * Create environment variables for your Azure student id
-
-      `export AZURE_USERNAME=<studentID>@<domain>.onmicrosoft.com`
-
-      `export AZURE_PW=XXXX`
-
-      *Note*: Password to be provided during session
-
-    * Create password file for Ansible Vault
-
-      `echo AzureLabDay > .vault-pass.txt`
 
     * Run Bash script to create Service Principle and application.        
      `./spCreate.sh`
+
+     You will be prompted for three values:
+     * Student Name
+     * Domain
+     * Password
+
+
 
      This script will output entries like these:
 
@@ -56,15 +52,14 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 | azure_user           | studentID      |
 | azure_user_pass      | VerySecurePassword |
 
-  * Copy these values to the clipboard
+  * These values have been copied to group_vars/all/vault.yml for you
 
-    * Create ansible vault file and paste the previously copied fields
+    * Encrypt the ansible vault file
 
-      `ansible-vault create group_vars/all/vault.yml`
+      `ansible-vault encrypt group_vars/all/vault.yml`
 
-    *Note* ansible-vault create starts the editor assigned $EDITOR (defaults to VI)
 
-    * You can use ansible-vault view group_vars/all/vault.yml to view the unencrypted values
+    * You can use ansible-vault view group_vars/all/vault.yml to view the decrypted values
 
     * Use cat to view the encrypted contents of the file
       `cat group_vars/all/vault.yml`
@@ -72,8 +67,17 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
   ## Module 1 - Build out initial environment
 
-  * Run ansible playbook (Initial build-out)
-    `ansible-playbook -i notahost, f5agility.yml -e deploy_state=present`
+  * Run ansible playbook - create Azure resource group
+    `ansible-playbook -i notahost, f5agility.yml -e deploy_state=present --tags rg`
+
+  * Run ansible playbook - create application servers
+    `ansible-playbook -i notahost, f5agility.yml -e deploy_state=present --tags app`
+
+  * Run ansible playbook - create BIG-IP
+      `ansible-playbook -i notahost, f5agility.yml -e deploy_state=present --tags 2nic`
+
+  * Run ansible playbook - setup base profiles
+      `ansible-playbook -i notahost, f5agility.yml -e deploy_state=present --tags vs`
 
     Once complete you can connect to the BIG-IP management Public IP displayed in on the terminal window.
 
@@ -81,7 +85,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
     * Open a browser (Firefox) and connect to the management public IP.
 
-      * Review the following:
+      * Review the following BIG-IP components:
         * Local Traffic
           * HTTP Profiles
           * TCP Profiles

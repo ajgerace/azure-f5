@@ -8,8 +8,12 @@
 #Required Enviroment Variable
 #AZURE_USERNAME=
 #AZURE_PW=
-
+read -p  "Enter your student name: " USERNAME
+read -p  "Enter the domain name:" DOMAIN
+read -p  "Enter your student password: " AZURE_PW
 #Set Username to be created
+AZURE_USERNAME=${USERNAME}@${DOMAIN}.onmicrosoft.com
+
 export AZURE_STUDENT="$(echo $AZURE_USERNAME | awk -F'@' '{print $1}')"
 APPSUFFIX="$(uuidgen|head -c 5)"
 export SP_NAME="$(echo $AZURE_USERNAME | awk -F'@' '{print $1}')-$APPSUFFIX"
@@ -27,6 +31,7 @@ AZURE_TENANT=$(az account list -o json | jq '.[0] .tenantId' --raw-output)
 AZURE_TENANT="export AZURE_TENANT=${AZURE_TENANT}"
 tenant="azure_tenant_id: $(az account list -o json | jq '.[0] .tenantId' --raw-output)"
 
+sleep 1
 #Create new SP
 AZURE_CLIENT_ID=$(az ad sp create-for-rbac --name $SP_NAME --password $SP_PASSWORD -o json | jq '.appId' --raw-output)
 [ -z "$AZURE_CLIENT_ID" ] && error=1
@@ -40,7 +45,7 @@ if [ ! -z "$error" ]
 then
   echo "An Error Occurred - Please raise your hand "
 else
-echo "Cut and Paste the SP ENV Variables "
+echo "Writing SP ENV Variables to vault file "
 echo "=================================="
   #echo $AZURE_SUBSCRIPTION_ID
   #echo $AZURE_TENANT
@@ -53,6 +58,15 @@ echo $tenant
 echo
 echo $az_name
 echo $az_pass
+
+echo $client_id >> group_vars/all/vault.yml
+echo $secret >> group_vars/all/vault.yml
+echo $subscription_id >> group_vars/all/vault.yml
+echo $tenant >> group_vars/all/vault.yml
+echo
+echo $az_name >> group_vars/all/vault.yml
+echo $az_pass >> group_vars/all/vault.yml
+
 fi
 
 #Response sent to client
