@@ -73,7 +73,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
 
   ## Module 1 - Build out initial environment
-  _Note:_ All tasks should end with _changed_ or _ok_ status. If you see any status messages that are <span style="color:#FF0000">red</span> please raise your hand.
+  _Note:_ All tasks should end with _changed_ or _ok_ status. If you see any status messages that are _red_ please raise your hand.
 
   * Run ansible playbook - create Azure resource group
 
