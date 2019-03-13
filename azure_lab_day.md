@@ -26,7 +26,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
       ` sudo docker run -it --rm ajgerace/f5automation`
 
     * Clone this repo into the container
-    
+
       `git clone https://github.com/ajgerace/azure-f5`
 
     * Change directory to the newly created azure-f5
@@ -62,7 +62,9 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
       `ansible-vault encrypt group_vars/all/vault.yml`
 
 
-    * You can use ansible-vault view group_vars/all/vault.yml to view the decrypted values
+    * You can use **ansible-vault view** to view the decrypted values
+
+      `ansible-vault view group_vars/all/vault.yml`
 
     * Use cat to view the encrypted contents of the vault file
 
