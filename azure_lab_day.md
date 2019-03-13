@@ -26,8 +26,11 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
       ` sudo docker run -it --rm ajgerace/f5automation`
 
     * Clone this repo into the container
+    
       `git clone https://github.com/ajgerace/azure-f5`
+
     * Change directory to the newly created azure-f5
+
       `cd azure-f5`
 
 
@@ -61,23 +64,28 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
     * You can use ansible-vault view group_vars/all/vault.yml to view the decrypted values
 
-    * Use cat to view the encrypted contents of the file
+    * Use cat to view the encrypted contents of the vault file
+
       `cat group_vars/all/vault.yml`
 
 
   ## Module 1 - Build out initial environment
 
   * Run ansible playbook - create Azure resource group
+
     `ansible-playbook -i notahost, f5agility.yml -e deploy_state=present --tags rg`
 
   * Run ansible playbook - create application servers
+
     `ansible-playbook -i notahost, f5agility.yml -e deploy_state=present --tags app`
 
   * Run ansible playbook - create BIG-IP
-      `ansible-playbook -i notahost, f5agility.yml -e deploy_state=present --tags 2nic`
+
+    `ansible-playbook -i notahost, f5agility.yml -e deploy_state=present --tags 2nic`
 
   * Run ansible playbook - setup base profiles
-      `ansible-playbook -i notahost, f5agility.yml -e deploy_state=present --tags vs`
+
+    `ansible-playbook -i notahost, f5agility.yml -e deploy_state=present --tags vs`
 
     Once complete you can connect to the BIG-IP management Public IP displayed in on the terminal window.
 
