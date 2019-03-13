@@ -22,7 +22,7 @@
 
   roles:
     # Retrieve external/public IP used for security group nsg_rules
-    - { role: retrieve_ip, tags: [rg,2nic]    when: deploy_state == "present" }
+    - { role: retrieve_ip, tags: [rg,2nic],    when: deploy_state == "present" }
     # creates AZ resource group, vnet, subnets and security groups
     - { role: setup_az_env, tags: rg,   when: deploy_state == "present" }
     # creates ubuntu based application server(s) and installs application using user-data
