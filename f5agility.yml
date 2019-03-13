@@ -43,5 +43,5 @@
   tasks:
     - debug:
         msg: "BIG-IP can be accessed via https://{{ bigipMgmtIp }}"
-      when: deployment == "2nic"
+      when: deployment == "2nic" and deploy_state == "present"
       tags: vs
