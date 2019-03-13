@@ -67,6 +67,7 @@ echo
 echo $az_name >> group_vars/all/vault.yml
 echo $az_pass >> group_vars/all/vault.yml
 
+echo "AzureLabDay" > .vault-pass.txt
 fi
 
 #Response sent to client

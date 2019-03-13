@@ -21,7 +21,8 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
   * Getting Started
 
-    * Run the docker container:
+    * Open a terminal window and run the docker container:
+      _Note:_ You will be prompted for a password. Use your password for the jumpbox.
 
       ` sudo docker run -it --rm ajgerace/f5automation`
 
@@ -156,7 +157,7 @@ You should initially receive a certificate challenge and then the Bodgeit applic
          value to **as3_azure_bodgeit_waf**
 
     * Re-run the  f5agility_create_services ansible playbook
-    
+
       `ansible-playbook f5agility_create_services.yml`
 
       * Verify that the vs_bodgeit_443 virtual server has a application security policy and a logging profile associated with it.
