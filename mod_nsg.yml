@@ -1,0 +1,86 @@
+---
+- name: Create application services using AS3
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+
+  environment:
+    AZURE_CLIENT_ID:         "{{ azure_client_id }}"
+    AZURE_SECRET:            "{{ azure_secret }}"
+    AZURE_SUBSCRIPTION_ID:   "{{ azure_subscription_id }}"
+    AZURE_TENANT:            "{{ azure_tenant_id }}"
+    AZURE_CERT_VALIDATION:   "ignore"
+    F5_USER:                 "{{ azure_user }}"
+    F5_PASSWORD:             "{{ azure_user_pass }}"
+    F5_VALIDATE_CERTS:       "no"
+    F5_SERVER:               "{{ bigipMgmtIp }}"
+    F5_SERVER_PORT:          443
+
+
+  vars_files:
+    - "group_vars/azure-f5.yml"
+
+  vars:
+    deploy_state: present
+    declareFile: "as3_azure_bodgeit"
+    mgmt_rules:
+      - name: Allow_SSH
+        protocol: Tcp
+        source_address_prefix: "0.0.0.0/0"
+        destination_port_range: 22
+        access: Allow
+        direction: Inbound
+        priority: 100
+      - name: Allow_HTTPS
+        protocol: Tcp
+        source_address_prefix: "0.0.0.0/0"
+        destination_port_range: 443
+        access: Allow
+        direction: Inbound
+        priority: 101
+
+    ext_rules:
+      - name: Allow_80
+        protocol: Tcp
+        source_address_prefix: "0.0.0.0/0"
+        destination_port_range: 80
+        access: Allow
+        direction: Inbound
+        priority: 100
+      - name: Allow_443
+        protocol: Tcp
+        source_address_prefix: "0.0.0.0/0"
+        destination_port_range: 443
+        access: Allow
+        direction: Inbound
+        priority: 101
+
+
+  tasks:
+    - name: Setup facts
+      include_role:
+        name: setup_facts
+
+    - name: Modify mgmt security group
+      azure_rm_securitygroup:
+        cert_validation_mode: ignore
+        name: "{{ prefix }}_mgmt_nsg"
+        rules: "{{ mgmt_rules }}"
+        resource_group: "{{ prefix }}_rg"
+        state: "{{ deploy_state }}"
+      tags: sg
+
+    - name: Modify ext security group
+      azure_rm_securitygroup:
+        cert_validation_mode: ignore
+        name: "{{ prefix }}_ext_nsg"
+        rules: "{{ ext_rules }}"
+        resource_group: "{{ prefix }}_rg"
+        state: "{{ deploy_state }}"
+      tags: sg
+
+    - debug:
+        msg: "BIG-IP can be accessed via https://{{ bigipMgmtIp }} and the application via https://{{ bigipVip1Pip }}"
+      when: deployment == "2nic"
+      tags: vs
