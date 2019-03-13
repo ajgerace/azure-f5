@@ -130,6 +130,7 @@ You should initially receive a certificate challenge and then the Bodgeit applic
 
   * Perform a SQL Injection attack
       * On the login page enter the following in the Username field and click Login
+
       `admin@thebodgeitstore.com' or '1'='1`
 
 
@@ -155,6 +156,7 @@ You should initially receive a certificate challenge and then the Bodgeit applic
          value to **as3_azure_bodgeit_waf**
 
     * Re-run the  f5agility_create_services ansible playbook
+    
       `ansible-playbook f5agility_create_services.yml`
 
       * Verify that the vs_bodgeit_443 virtual server has a application security policy and a logging profile associated with it.
