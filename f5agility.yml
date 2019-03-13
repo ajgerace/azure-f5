@@ -22,7 +22,7 @@
 
   roles:
     # Retrieve external/public IP used for security group nsg_rules
-    - { role: retrieve_ip, tags: rg,    when: deploy_state == "present" }
+    - { role: retrieve_ip, tags: [rg,2nic]    when: deploy_state == "present" }
     # creates AZ resource group, vnet, subnets and security groups
     - { role: setup_az_env, tags: rg,   when: deploy_state == "present" }
     # creates ubuntu based application server(s) and installs application using user-data
@@ -32,7 +32,7 @@
     # creates a Active/Passive BIG-IP cluster
     - { role: bigip_ha,     tags: ha,   when: deployment == "ha" and deploy_state == "present" }
     # setup facts from the BIG-IP deployments
-    - { role: setup_facts,  tags: vs,   when: deploy_state == "present" }
+    - { role: setup_facts,  tags: [2nic,vs],   when: deploy_state == "present" }
     # create profiles and monitors
     - { role: setup_profiles, tags: vs,   when: deploy_state == "present" }
     # create application services using an AS3 declaration
