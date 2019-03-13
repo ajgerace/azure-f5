@@ -159,7 +159,7 @@ You should initially receive a certificate challenge and then the Bodgeit applic
 
     * Re-run the  f5agility_create_services ansible playbook
 
-      `ansible-playbook f5agility_create_services.yml`
+      `ansible-playbook -i notahost, f5agility_create_services.yml -e declareFile=as3_azure_bodgeit_waf`
 
       * Verify that the vs_bodgeit_443 virtual server has a application security policy and a logging profile associated with it.
 
