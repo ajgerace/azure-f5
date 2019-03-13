@@ -31,7 +31,7 @@ AZURE_TENANT=$(az account list -o json | jq '.[0] .tenantId' --raw-output)
 AZURE_TENANT="export AZURE_TENANT=${AZURE_TENANT}"
 tenant="azure_tenant_id: $(az account list -o json | jq '.[0] .tenantId' --raw-output)"
 
-sleep 1
+wait 
 #Create new SP
 AZURE_CLIENT_ID=$(az ad sp create-for-rbac --name $SP_NAME --password $SP_PASSWORD -o json | jq '.appId' --raw-output)
 [ -z "$AZURE_CLIENT_ID" ] && error=1
