@@ -95,7 +95,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
     * Open a browser (Firefox) and connect to the management public IP.
 
-      * Review the following BIG-IP components:
+      * Review the following BIG-IP configuration objects:
         * Local Traffic
           * HTTP Profiles
           * TCP Profiles
@@ -120,7 +120,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
       When complete, review the configuration built.  These will be located in the as3_azure_eastus partition.
 
- **_Note_**: If you receive an error when running the create_services playbook, please re-run the playbook.
+ **_Note_**: If you receive an _SSL Read operation timeout_ error when running the create_services playbook, please re-run the playbook.
 
 The url to the virtual server was displayed in the output from the above command.
 Copy and paste the url into your browser.
