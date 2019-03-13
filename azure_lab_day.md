@@ -229,9 +229,10 @@ You should initially receive a certificate challenge and then the Bodgeit applic
   * Click around the Bodgeit application
   * You should not notice a difference, pages should load without problem.
 
-  * From the terminal window execute attack on the bodgeit site
+  * From a new terminal window execute attack on the bodgeit site
+    Replace **VIP** with the public IP address of your virtual server
 
-      `ab -c 1 -n 100 -r https://VIP/bodgeit/login.jsp`
+      `ab -c 1 -n 100 -r https://**VIP**/bodgeit/login.jsp`
 
 * Review logs at Security -> event logs -> BoT Defense : requests
 
