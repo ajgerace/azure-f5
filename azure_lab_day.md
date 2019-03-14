@@ -120,7 +120,8 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
       This playbook will deploy a HTTPS virtual server and utilize Azure Service discovery to find nodes and add them to the application pool for the BodgeIt vulnerable application
 
-      When complete, review the configuration built.  These will be located in the as3_azure_eastus partition.
+      When complete, review the configuration built.  
+      Click on the partition pulldown and select **_as3_azure_eastus_** partition.
 
  **_Note_**: If you receive an _SSL Read operation timeout_ error when running the create_services playbook, please re-run the playbook.
 
