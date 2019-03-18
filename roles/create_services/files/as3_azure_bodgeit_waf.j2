@@ -27,7 +27,7 @@
                     },
                     "profileMultiplex": {
                         "bigip": "/Common/{{ baseProfileName }}-oneconnect"
-                    },
+                            },
                     "profileTCP": {
                         "egress": {
                             "bigip": "/Common/{{ baseProfileName }}-tcp-wan"
@@ -54,20 +54,13 @@
                 "vs_{{ vsName }}_pool": {
                     "class": "Pool",
                     "members": [
-                        {
-      			              "servicePort": 8080,
-      			              "addressDiscovery": "azure",
-      			              "updateInterval": 10,
-      			              "tagKey": "appName",
-      			              "tagValue": "bodgeit",
-      			              "addressRealm": "private",
-      			              "resourceGroup": "{{ vnetResGroupName }}",
-      			              "subscriptionId": "{{ azure_subscription_id }}",
-                          "directoryId": "{{ azure_tenant_id }}",
-                          "applicationId": "{{ azure_client_id }}",
-                          "apiAccessKey": "{{ azure_secret }}",
-      			              "credentialUpdate": false
-            			      }
+                      {
+                      "servicePort": 8080,
+                      "serverAddresses": [
+                          "10.0.10.4",
+                          "10.0.10.5"
+                      ]
+                     }
                     ],
                     "monitors": [
                         {
