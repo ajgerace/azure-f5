@@ -13,9 +13,11 @@ USER_PREFIX="empty"
 echo "Log in to AZ:"
 
 read -p "Enter AZ Admin Username: " ADMIN_USER
-read -p "Enfer AZ Domain: " AZ_USER_DOMAIN
+read -p "Enter AZ Domain: " AZ_USER_DOMAIN
 read -p "Password: " ADMIN_PW
 read -p "Prefix of App to delete: " USER_PREFIX
+
+AZ_USER_DOMAIN=${AZ_USER_DOMAIN}.onmicrosoft.com
 LOGIN=$(az login -u $ADMIN_USER@$AZ_USER_DOMAIN -p $ADMIN_PW -o json)
 
 AZURE_APPS=$(az ad app list -o json | jq ".[].homepage " -r)
