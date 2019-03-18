@@ -6,8 +6,8 @@
 #AZ_USER_PW (This is the new user PW)
 
 # How to run the script:
-# scriptname "Number of Uses to Generate" "ComplexPassword" "Username Prexix" "Starting User"
-# 3 and 4 not implemented
+# scriptname "Number of Uses to Generate" "ComplexPassword" "Username Prexix"
+
 
 #Define Azure VARs
 AZ_USER_PREFIX=$3
@@ -15,13 +15,14 @@ AZ_USER_DOMAIN="empty"
 AZ_USER_PW=$2
 AZ_ROLE=contributor
 AZ_USER_NUM=$1
-# STARTING_USER=$3
 
 echo "Log in to AZ:"
 
 read -p "Enter AZ Admin Username: " ADMIN_USER
 read -p "Enfer AZ Domain: " AZ_USER_DOMAIN
 read -p "Password: " ADMIN_PW
+
+AZ_USER_DOMAIN=${AZ_USER_DOMAIN}.onmicrosoft.com
 
 LOGIN=$(az login -u $ADMIN_USER@$AZ_USER_DOMAIN -p $ADMIN_PW -o json)
 #echo $LOGIN
