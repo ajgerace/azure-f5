@@ -57,20 +57,36 @@ do
   ROLE1=$(az role assignment create --assignee $USER_PRINCIPAL --role contributor)
   ROLE2=$(az role assignment create --assignee $USER_PRINCIPAL --role "user access administrator")
 
+  #AZURE_SECRET=$(uuidgen)
+  #AZURE_CLIENT_ID=$(az ad sp create-for-rbac --name $DISPLAY_NAME --password $AZURE_SECRET -o json | jq '.appId' -r)
+  #[ -z "$AZURE_CLIENT_ID" ] && error=1
+
+  #if [ ! -z "$error" ]
+  #then
+  #  echo "Error Generating Application ID - Please raise your hand "
+  #else
+  #  echo "" > vault_$DISPLAY_NAME.yml
+  #  echo "azure_client_id:" $AZURE_CLIENT_ID  >> vault_$DISPLAY_NAME.yml
+  #  echo "azure_subscription_id:" $AZURE_SUBSCRIPTION_ID >> vault_$DISPLAY_NAME.yml
+  #  echo "azure_secret:" $AZURE_SECRET        >> vault_$DISPLAY_NAME.yml
+  #  echo "azure_tenant_id:" $AZURE_TENANT_ID  >> vault_$DISPLAY_NAME.yml
+  #  echo "azure_user:" $DISPLAY_NAME >> vault_$DISPLAY_NAME.yml
+  #  echo "azure_user_pass:" $AZ_USER_PW >> vault_$DISPLAY_NAME.yml
+  #fi
+  done
+  echo $DISPLAY_NAME
   AZURE_SECRET=$(uuidgen)
   AZURE_CLIENT_ID=$(az ad sp create-for-rbac --name $DISPLAY_NAME --password $AZURE_SECRET -o json | jq '.appId' -r)
   [ -z "$AZURE_CLIENT_ID" ] && error=1
-
   if [ ! -z "$error" ]
-  then
-    echo "Error Generating Application ID - Please raise your hand "
+    then
+      echo "Error Generating Application ID - you are in trouble "
   else
-    echo "" > vault_$DISPLAY_NAME.yml
-    echo "azure_client_id:" $AZURE_CLIENT_ID  >> vault_$DISPLAY_NAME.yml
-    echo "azure_subscription_id:" $AZURE_SUBSCRIPTION_ID >> vault_$DISPLAY_NAME.yml
-    echo "azure_secret:" $AZURE_SECRET        >> vault_$DISPLAY_NAME.yml
-    echo "azure_tenant_id:" $AZURE_TENANT_ID  >> vault_$DISPLAY_NAME.yml
-    echo "azure_user:" $DISPLAY_NAME >> vault_$DISPLAY_NAME.yml
-    echo "azure_user_pass:" $AZ_USER_PW >> vault_$DISPLAY_NAME.yml
+    echo "" > vault.yml
+    echo "azure_client_id:" $AZURE_CLIENT_ID  >> vault.yml
+    echo "azure_subscription_id:" $AZURE_SUBSCRIPTION_ID >> vault.yml
+    echo "azure_secret:" $AZURE_SECRET        >> vault.yml
+    echo "azure_tenant_id:" $AZURE_TENANT_ID  >> vault.yml
+  #  echo "azure_user:" $DISPLAY_NAME >> vault_$DISPLAY_NAME.yml
+  #  echo "azure_user_pass:" $AZ_USER_PW >> vault_$DISPLAY_NAME.yml
   fi
-  done

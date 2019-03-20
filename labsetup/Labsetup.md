@@ -1,16 +1,22 @@
 Azure Lab Day - Setup Instructions
 
 1. Ravello - Jump Host Setup
-  - TBD
+  - using F5 ID credentials create training class in Ravello
+  - you can use this blue print: "F5 Azure Lab BP#3-IL"
+  - Add Students via csv spreadsheet and export Application list
+  - Ravello (Jumphost) Application List has to be converted to MD format published to students.
+  this web page gives good results: http://convertcsv.com/csv-to-markdown.htm
+    * We publish applications list on the front page of this repository (README.md) 
+
 
 2. Azure Subscription Preparation
-  * Obtain administrative credentials for Azure subscription, that can be either admin@domain or f5 ID with specific credentials to create users and/or assign roles
+  * Obtain administrative credentials for Azure subscription, that can be either admin@domain or F5 ID with specific credentials to create users and/or assign roles
 
   * Next step performed on your management machine (can be a jumphost from step 1 or any flavor of Mac/Linux)
   * Run:
 
     `git clone https://github.com/ajgerace/azure-f5`  
-  `cd azure-f5/labsetup`
+    `cd azure-f5/labsetup`
 
   * Create desired number of users for Azure lab:
 
