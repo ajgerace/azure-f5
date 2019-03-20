@@ -23,6 +23,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
     * Open a terminal window, update and run the docker container:
       _Note:_ You will be prompted for a password. Use your password for the jumpbox.
+      
       `sudo docker pull ajgerace/f5automation`
 
       ` sudo docker run -it --rm ajgerace/f5automation`
