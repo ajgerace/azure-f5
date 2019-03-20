@@ -73,13 +73,13 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
   `ansible-vault encrypt group_vars/all/vault.yml`
 
 
-    * You can use **ansible-vault view** to view the decrypted values
+  * You can use **ansible-vault view** to view the decrypted values
 
-    `ansible-vault view group_vars/all/vault.yml`
+  `ansible-vault view group_vars/all/vault.yml`
 
-    * Use cat to view the encrypted contents of the vault file
+  * Use cat to view the encrypted contents of the vault file
 
-    `cat group_vars/all/vault.yml`
+  `cat group_vars/all/vault.yml`
 
 
   ## Module 1 - Build out initial environment
