@@ -64,13 +64,13 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
   *The values should be similar to the above table*
 
-    * Create vault password file
+  * Create vault password file
 
-    `echo "AzureLabDay" > .vault-pass.txt`
+  `echo "AzureLabDay" > .vault-pass.txt`
 
-    * Encrypt the ansible vault file
+  * Encrypt the ansible vault file
 
-    `ansible-vault encrypt group_vars/all/vault.yml`
+  `ansible-vault encrypt group_vars/all/vault.yml`
 
 
     * You can use **ansible-vault view** to view the decrypted values
