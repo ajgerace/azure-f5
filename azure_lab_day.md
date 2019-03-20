@@ -62,7 +62,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 | azure_user           | studentID      |
 | azure_user_pass      | VerySecurePassword |
 
-    * The values should be similar to the above table
+  *The values should be similar to the above table*
 
     * Create vault password file
 
