@@ -23,7 +23,7 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
     * Open a terminal window, update and run the docker container:
       _Note:_ You will be prompted for a password. Use your password for the jumpbox.
-      
+
       `sudo docker pull ajgerace/f5automation`
 
       ` sudo docker run -it --rm ajgerace/f5automation`
@@ -37,16 +37,19 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
       `cd azure-f5`
 
 
-    * Run Bash script to create Service Principle and application.        
-     `./spCreate.sh`
+  * Click on the link below to download vault.yml file from http://tinyurl.com/yxnusfkt
+  * Copy the content of vault.yml to
 
-     You will be prompted for three values:
-     * Student Name
-     * Domain
-     * Password
+  `group_vars/all/vault.yml`
 
+  `cp vault.yml group_vars/all/vault.yml`
 
+  * Edit vault.yml by adding two new values:
 
+  ` azure_user: StudentID`
+
+  ` azure_user_pass: Password`
+   
      This script will output entries like these:
 
 | Variable             | Value |
