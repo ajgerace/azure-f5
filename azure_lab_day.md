@@ -37,9 +37,9 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
       `cd azure-f5`
 
 
-    * Use curl to download vault.yml file from http://tinyurl.com/yxnusfkt
+    * Use curl to download vault.yml file
 
-    `curl http://tinyurl.com/yxnusfkt -o group_vars/all/vault.yml -J -L`
+    `curl <url - TBD > -o group_vars/all/vault.yml -J -L`
 
     * Add studentID credentials to vault file
 
