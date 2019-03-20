@@ -37,20 +37,21 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
       `cd azure-f5`
 
 
-  * Click on the link below to download vault.yml file from http://tinyurl.com/yxnusfkt
-  * Copy the content of vault.yml to
+  * Use curl to download vault.yml file from http://tinyurl.com/yxnusfkt
 
-  `group_vars/all/vault.yml`
+  `curl http://tinyurl.com/yxnusfkt -o group_vars/all/vault.yml`
 
-  `cp vault.yml group_vars/all/vault.yml`
+  * Add studentID to vault file
 
-  * Edit vault.yml by adding two new values:
+  `echo "azure_user: <StudentID>" >> group_vars/all/vault.yml`
 
-  ` azure_user: StudentID`
+  * Add studentID password to vault file
 
-  ` azure_user_pass: Password`
-   
-     This script will output entries like these:
+  `echo "azure_user_pass: <password>" >> group_vars/all/vault.yml`
+
+  * View the updated vault file
+
+  `cat group_vars/all/vault.yml`
 
 | Variable             | Value |
 | --------------------:|------:|  
@@ -61,20 +62,24 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 | azure_user           | studentID      |
 | azure_user_pass      | VerySecurePassword |
 
-  * These values have been copied to group_vars/all/vault.yml for you
+  * The values should be similar to the above table
 
-    * Encrypt the ansible vault file
+  * Create vault password file
 
-      `ansible-vault encrypt group_vars/all/vault.yml`
+  `echo "AzureLabDay" > .vault-pass.txt`
+
+  * Encrypt the ansible vault file
+
+  `ansible-vault encrypt group_vars/all/vault.yml`
 
 
-    * You can use **ansible-vault view** to view the decrypted values
+  * You can use **ansible-vault view** to view the decrypted values
 
-      `ansible-vault view group_vars/all/vault.yml`
+    `ansible-vault view group_vars/all/vault.yml`
 
-    * Use cat to view the encrypted contents of the vault file
+  * Use cat to view the encrypted contents of the vault file
 
-      `cat group_vars/all/vault.yml`
+    `cat group_vars/all/vault.yml`
 
 
   ## Module 1 - Build out initial environment
