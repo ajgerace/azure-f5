@@ -37,21 +37,20 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
       `cd azure-f5`
 
 
-  * Use curl to download vault.yml file from http://tinyurl.com/yxnusfkt
+    * Use curl to download vault.yml file from http://tinyurl.com/yxnusfkt
 
-  `curl http://tinyurl.com/yxnusfkt -o group_vars/all/vault.yml -J -L`
+    `curl http://tinyurl.com/yxnusfkt -o group_vars/all/vault.yml -J -L`
 
-  * Add studentID to vault file
+    * Add studentID credentials to vault file
+    **_Note_**: These will be provided by the instructor
 
-  `echo "azure_user: <StudentID>" >> group_vars/all/vault.yml`
+    `echo "azure_user: <StudentID>" >> group_vars/all/vault.yml`
 
-  * Add studentID password to vault file
+    `echo "azure_user_pass: <password>" >> group_vars/all/vault.yml`
 
-  `echo "azure_user_pass: <password>" >> group_vars/all/vault.yml`
+    * View the updated vault file
 
-  * View the updated vault file
-
-  `cat group_vars/all/vault.yml`
+    `cat group_vars/all/vault.yml`
 
 | Variable             | Value |
 | --------------------:|------:|  
@@ -62,22 +61,22 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 | azure_user           | studentID      |
 | azure_user_pass      | VerySecurePassword |
 
-  * The values should be similar to the above table
+    * The values should be similar to the above table
 
-  * Create vault password file
+    * Create vault password file
 
-  `echo "AzureLabDay" > .vault-pass.txt`
+    `echo "AzureLabDay" > .vault-pass.txt`
 
-  * Encrypt the ansible vault file
+    * Encrypt the ansible vault file
 
-  `ansible-vault encrypt group_vars/all/vault.yml`
+    `ansible-vault encrypt group_vars/all/vault.yml`
 
 
-  * You can use **ansible-vault view** to view the decrypted values
+    * You can use **ansible-vault view** to view the decrypted values
 
     `ansible-vault view group_vars/all/vault.yml`
 
-  * Use cat to view the encrypted contents of the vault file
+    * Use cat to view the encrypted contents of the vault file
 
     `cat group_vars/all/vault.yml`
 
