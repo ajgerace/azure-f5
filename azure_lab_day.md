@@ -42,7 +42,8 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
     `curl http://tinyurl.com/yxnusfkt -o group_vars/all/vault.yml -J -L`
 
     * Add studentID credentials to vault file
-    **_Note_**: These will be provided by the instructor
+
+    **_Note_**: The credentials will be provided by the instructor
 
     `echo "azure_user: <StudentID>" >> group_vars/all/vault.yml`
 
