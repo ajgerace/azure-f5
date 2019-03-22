@@ -222,12 +222,16 @@ You should initially receive a certificate challenge and then the Bodgeit applic
   * Click on the new profile you created
     * Click Application Security menu
       * General Settings - **Enable** Application Security
-      * Proactive Bot Defense - Toggle Operational Mode to **Always**
+      * Proactive Bot Defense
+        * Toggle Operational Mode to **Always**
+        * Uncheck CAPTCHA Challenge
       * Adjust Grace Period from 300 seconds to **30** seconds
       * Toggle TPS based detection's Operational Mode from blocking to **Off**
       * Click **Update**
 
+  ![Dos_pbd](images/dos_profile_pbd.png)
 
+  
   ![Dos Profile](images/dos_profile_end.png)
 
   * Click **Local Traffic**
