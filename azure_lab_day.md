@@ -38,7 +38,8 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 
 
     * Use curl to download vault.yml file
-      **_Replace <url> with the url provided by the instructor._**
+
+      Replace *\<url>* with the url provided by the instructor.
 
     `curl <url> -o group_vars/all/vault.yml -J -L`
 
