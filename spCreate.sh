@@ -31,9 +31,9 @@ AZURE_TENANT=$(az account list -o json | jq '.[0] .tenantId' --raw-output)
 AZURE_TENANT="export AZURE_TENANT=${AZURE_TENANT}"
 tenant="azure_tenant_id: $(az account list -o json | jq '.[0] .tenantId' --raw-output)"
 
-sleep 2
-#Create new SP
-AZURE_CLIENT_ID=$(az ad sp create-for-rbac --name $SP_NAME --password $SP_PASSWORD -o json | jq '.appId' --raw-output)
+#Credentials Reset
+AZURE_CLIENT_ID=$(aaz ad sp credential reset  --name $SP_NAME -o json | jq '.appId' --raw-output)
+#AZURE_CLIENT_ID=$(az ad sp create-for-rbac --name $SP_NAME --password $SP_PASSWORD -o json | jq '.appId' --raw-output)
 [ -z "$AZURE_CLIENT_ID" ] && error=1
 client_id="azure_client_id: ${AZURE_CLIENT_ID}"
 AZURE_CLIENT_ID="export AZURE_CLIENT_ID=${AZURE_CLIENT_ID}"

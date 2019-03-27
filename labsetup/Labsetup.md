@@ -6,7 +6,7 @@ Azure Lab Day - Setup Instructions
   - Add Students via csv spreadsheet and export Application list
   - Ravello (Jumphost) Application List has to be converted to MD format published to students.
   this web page gives good results: http://convertcsv.com/csv-to-markdown.htm
-    * We publish applications list on the front page of this repository (README.md) 
+    * We publish applications list on the front page of this repository (README.md)
 
 
 2. Azure Subscription Preparation
@@ -28,6 +28,7 @@ Azure Lab Day - Setup Instructions
      * This script will generate:
       - UserID's for lab
       - Service Principle Names to execute lab
-      - Collect all needed subscription information and create collection of vault_*Username*.yml files in the local directory
+      - Collect all needed subscription information and create vault.yml file in the local directory
 
-  * "vault_*username*.yml" files need to uploaded to shared dropbox folder and then later shared with students
+  * "vault.yml" file needs to be uploaded to shared dropbox folder and then later shared with students
+  * when sharing dropbox link with students ensure the links is suitable for download 

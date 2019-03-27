@@ -6,7 +6,7 @@
 #AZ_USER_PW (This is the new user PW)
 
 # How to run the script:
-# scriptname "Number of Uses to Generate" "ComplexPassword" "Username Prexix"
+# scriptname "Number of Uses to Generate" "ComplexPassword" "Username Prefix"
 
 
 #Define Azure VARs
