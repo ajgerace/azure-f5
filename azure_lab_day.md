@@ -37,20 +37,23 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
       `cd azure-f5`
 
 
-  * Click on the link below to download vault.yml file from http://tinyurl.com/yxnusfkt
-  * Copy the content of vault.yml to
+    * Use curl to download vault.yml file
 
-  `group_vars/all/vault.yml`
+      Replace *\<url>* with the url provided by the instructor.
 
-  `cp vault.yml group_vars/all/vault.yml`
+    `curl <url> -o group_vars/all/vault.yml -J -L`
 
-  * Edit vault.yml by adding two new values:
+    * Add studentID credentials to vault file
 
-  ` azure_user: StudentID`
+    **_Note_**: The credentials will be provided by the instructor
 
-  ` azure_user_pass: Password`
-   
-     This script will output entries like these:
+    `echo "azure_user: <StudentID>" >> group_vars/all/vault.yml`
+
+    `echo "azure_user_pass: <password>" >> group_vars/all/vault.yml`
+
+    * View the updated vault file
+
+    `cat group_vars/all/vault.yml`
 
 | Variable             | Value |
 | --------------------:|------:|  
@@ -61,20 +64,24 @@ For this lab day we will utilize the Microsoft Azure Cloud to deploy a vulnerabl
 | azure_user           | studentID      |
 | azure_user_pass      | VerySecurePassword |
 
-  * These values have been copied to group_vars/all/vault.yml for you
+  *The values should be similar to the above table*
 
-    * Encrypt the ansible vault file
+  * Create vault password file
 
-      `ansible-vault encrypt group_vars/all/vault.yml`
+  `echo "AzureLabDay" > .vault-pass.txt`
+
+  * Encrypt the ansible vault file
+
+  `ansible-vault encrypt group_vars/all/vault.yml`
 
 
-    * You can use **ansible-vault view** to view the decrypted values
+  * You can use **ansible-vault view** to view the decrypted values
 
-      `ansible-vault view group_vars/all/vault.yml`
+  `ansible-vault view group_vars/all/vault.yml`
 
-    * Use cat to view the encrypted contents of the vault file
+  * Use cat to view the encrypted contents of the vault file
 
-      `cat group_vars/all/vault.yml`
+  `cat group_vars/all/vault.yml`
 
 
   ## Module 1 - Build out initial environment
@@ -215,12 +222,16 @@ You should initially receive a certificate challenge and then the Bodgeit applic
   * Click on the new profile you created
     * Click Application Security menu
       * General Settings - **Enable** Application Security
-      * Proactive Bot Defense - Toggle Operational Mode to **Always**
+      * Proactive Bot Defense
+        * Toggle Operational Mode to **Always**
+        * Uncheck CAPTCHA Challenge
       * Adjust Grace Period from 300 seconds to **30** seconds
       * Toggle TPS based detection's Operational Mode from blocking to **Off**
       * Click **Update**
 
+  ![Dos_pbd](images/dos_profile_pbd.png)
 
+  
   ![Dos Profile](images/dos_profile_end.png)
 
   * Click **Local Traffic**

@@ -39,6 +39,7 @@
 
   - name: Create TCP profiles
     bigip_profile_tcp:
+      idle_timeout: 60
       name: "{{ baseProfileName}}-tcp-{{ item }}"
       parent: "f5-tcp-{{ item }}"
     delegate_to: localhost

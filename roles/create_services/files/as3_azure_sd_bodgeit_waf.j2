@@ -1,0 +1,86 @@
+{
+  "action": "deploy",
+    "class": "AS3",
+    "persist": true,
+    "declaration": {
+        "class": "ADC",
+        "id": "azure-{{ location }}-{{ vsName }}-waf-f5demo",
+        "schemaVersion": "3.5.0",
+        "as3_azure_{{ location }}": {
+            "class": "Tenant",
+            "{{ vsName }}": {
+                "class": "Application",
+                "template": "generic",
+                "vs_{{vsName}}_443": {
+                    "class": "Service_HTTPS",
+                    "iRules": [
+                        {
+                            "bigip": "/Common/bodgeit_irule"
+                        }
+                    ],
+                    "pool": "vs_{{ vsName }}_pool",
+                    "policyWAF": {
+                        "use": "bodgeit_sec_policy"
+                    },
+                    "profileHTTP": {
+                        "bigip": "/Common/{{ baseProfileName }}-http"
+                    },
+                    "profileMultiplex": {
+                        "bigip": "/Common/{{ baseProfileName }}-oneconnect"
+                    },
+                    "profileTCP": {
+                        "egress": {
+                            "bigip": "/Common/{{ baseProfileName }}-tcp-wan"
+                        },
+                        "ingress": {
+                            "bigip": "/Common/{{ baseProfileName }}-tcp-lan"
+                        }
+                    },
+                    "redirect80": true,
+                    "securityLogProfiles": [
+                        	{
+                        	"bigip": "/Common/f5demo-log-all"
+                        	}
+                    ],
+                    "serverTLS": {
+                        "bigip": "/Common/{{ baseProfileName }}-clientssl"
+                    },
+                    "snat": "auto",
+                    "virtualAddresses": [
+                        "{{ extVipAddr1 }}"
+                    ],
+                    "virtualPort": 443
+                },
+                "vs_{{ vsName }}_pool": {
+                    "class": "Pool",
+                    "members": [
+                        {
+      			              "servicePort": 8080,
+      			              "addressDiscovery": "azure",
+      			              "updateInterval": 10,
+      			              "tagKey": "appName",
+      			              "tagValue": "bodgeit",
+      			              "addressRealm": "private",
+      			              "resourceGroup": "{{ vnetResGroupName }}",
+      			              "subscriptionId": "{{ azure_subscription_id }}",
+                          "directoryId": "{{ azure_tenant_id }}",
+                          "applicationId": "{{ azure_client_id }}",
+                          "apiAccessKey": "{{ azure_secret }}",
+      			              "credentialUpdate": false
+            			      }
+                    ],
+                    "monitors": [
+                        {
+                            "bigip": "/Common/f5demo_http_head"
+                        }
+                    ]
+                },
+                "bodgeit_sec_policy": {
+                    	"class": "WAF_Policy",
+                    	"url": "{{ wafPolicyUrl }}",
+                    	"ignoreChanges": true
+                }
+            }
+        }
+    }
+}
