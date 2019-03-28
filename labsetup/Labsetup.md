@@ -23,7 +23,8 @@ Azure Lab Day - Setup Instructions
     `./userCreate_SP.sh X SecurePassword Prefix`
      1. Where "*X*" is number of Users
      2. *SecurePassword* is password for user accounts that meets Azure complexity requirements
-     3. *Prefix* is username prefix for example "*f5student*" - sequential user number will automatically be attached to username
+     3. *Prefix* is username prefix for example "*f5_location_student*" - sequential user number will automatically be attached to username
+     _Note:_ While currently not enforced, to avoid overlap, it's a good practice to include location or additional details in the username. For example for "*f5NYCstudent*" - NYC would stand for New York area. 
 
      * This script will generate:
       - UserID's for lab
@@ -31,4 +32,4 @@ Azure Lab Day - Setup Instructions
       - Collect all needed subscription information and create vault.yml file in the local directory
 
   * "vault.yml" file needs to be uploaded to shared dropbox folder and then later shared with students
-  * when sharing dropbox link with students ensure the links is suitable for download 
+  * when sharing dropbox link with students ensure the links is suitable for download
