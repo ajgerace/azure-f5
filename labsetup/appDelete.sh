@@ -28,5 +28,4 @@ do
   echo "Deleting: $APP"
   	az ad app delete  --id $APP
   fi
-#az ad user delete --upn-or-object-id $ID
 done
