@@ -7,7 +7,7 @@ Visit https://github.com/ajgerace/azure-f5 for the lab instructions
 1. During the Hands-On part of the Azure Lab Event you will be assigned a username from the list below:
 
 ***Add links to user env***
-For Naser:
+
 |Number|First Name|Last Name|Ephemeral Access URL                                                                                                          |Email                              |Application Name                                                                                     |
 |------|----------|---------|------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|-----------------------------------------------------------------------------------------------------|
 |1     |f5test1   |f5test1  |https://access.ravellosystems.com/simple/#/d6EDeFTC7DvG6h5vhTbIqSJh7TMKNNxAkiFGCPX640ngNoaUE5IVVxh3ccDHER8N/apps/3125677231506|f5test1@f5custlabs.onmicrosoft.com |F5 Azure Lab Day - Testing##F5 Azure Lab BP#3-IL##7bbc76c0-cd94-45c0-b2e3-889c763220b0##1553086614667|
