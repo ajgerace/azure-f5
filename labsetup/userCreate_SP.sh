@@ -46,7 +46,7 @@ do
    USER=$c
    echo "------"
    #echo "Generating user # "$USER
-   DISPLAY_NAME="${AZ_USER_PREFIX}${USER}"
+   DISPLAY_NAME="${AZ_USER_PREFIX}$(printf %02d $USER)"
    #echo "user name: "$DISPLAY_NAME
    USER_PRINCIPAL="$DISPLAY_NAME@$AZ_USER_DOMAIN"
    #echo "user principal: "$USER_PRINCIPAL
